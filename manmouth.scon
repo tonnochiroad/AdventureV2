@@ -1,0 +1,629 @@
+{
+	"entity": [
+		{
+			"animation": [
+				{
+					"b": 64,
+					"id": 0,
+					"interval": 100,
+					"l": -111,
+					"length": 1000,
+					"mainline": {
+						"key": [
+							{
+								"bone_ref": [
+									{
+										"id": 0,
+										"key": 0,
+										"timeline": 1
+									}
+								],
+								"id": 0,
+								"object_ref": [
+									{
+										"abs_a": 1,
+										"abs_angle": 360,
+										"abs_pivot_x": 0,
+										"abs_pivot_y": 1,
+										"abs_scale_x": 1,
+										"abs_scale_y": 1,
+										"abs_x": -140,
+										"abs_y": -117.5,
+										"file": 7,
+										"folder": 0,
+										"id": 0,
+										"key": 0,
+										"name": "mm_mouth_aa",
+										"timeline": "0",
+										"z_index": "0"
+									}
+								]
+							}
+						]
+					},
+					"name": "Nothing",
+					"r": 93,
+					"t": -56,
+					"timeline": [
+						{
+							"id": 0,
+							"key": [
+								{
+									"id": 0,
+									"object": {
+										"file": 7,
+										"folder": 0,
+										"x": -140,
+										"y": 117.5
+									},
+									"spin": 0
+								}
+							],
+							"name": "mm_mouth_aa",
+							"obj": 0
+						},
+						{
+							"id": 1,
+							"key": [
+								{
+									"bone": {
+										"angle": 90,
+										"scale_y": 6.8571428571428585,
+										"x": 0.9523809523809521,
+										"y": -2.8571428571428568
+									},
+									"id": 0,
+									"spin": 0
+								}
+							],
+							"name": "bone_000",
+							"obj": 1,
+							"object_type": "bone"
+						}
+					]
+				},
+				{
+					"b": 65,
+					"id": 1,
+					"interval": 100,
+					"l": -117,
+					"length": 1000,
+					"mainline": {
+						"key": [
+							{
+								"bone_ref": [
+									{
+										"id": 0,
+										"key": 0,
+										"timeline": 1
+									}
+								],
+								"id": 0,
+								"object_ref": [
+									{
+										"abs_a": 1,
+										"abs_angle": 360,
+										"abs_pivot_x": 0,
+										"abs_pivot_y": 1,
+										"abs_scale_x": 1,
+										"abs_scale_y": 1,
+										"abs_x": -140,
+										"abs_y": -117.5,
+										"file": 6,
+										"folder": 0,
+										"id": 0,
+										"key": 0,
+										"name": "mm_mouth_aa",
+										"timeline": "0",
+										"z_index": "0"
+									}
+								]
+							}
+						]
+					},
+					"name": "Wry",
+					"r": 71,
+					"t": -56,
+					"timeline": [
+						{
+							"id": 0,
+							"key": [
+								{
+									"id": 0,
+									"object": {
+										"file": 6,
+										"folder": 0,
+										"x": -140,
+										"y": 117.5
+									},
+									"spin": 0
+								}
+							],
+							"name": "mm_mouth_aa",
+							"obj": 0
+						},
+						{
+							"id": 1,
+							"key": [
+								{
+									"bone": {
+										"angle": 90,
+										"scale_y": 6.8571428571428585,
+										"x": 0.9523809523809521,
+										"y": -2.8571428571428568
+									},
+									"id": 0,
+									"spin": 0
+								}
+							],
+							"name": "bone_000",
+							"obj": 1,
+							"object_type": "bone"
+						}
+					]
+				},
+				{
+					"b": 91,
+					"id": 2,
+					"interval": 100,
+					"l": -111,
+					"length": 5000,
+					"mainline": {
+						"key": [
+							{
+								"bone_ref": [
+									{
+										"id": 0,
+										"key": 0,
+										"timeline": 1
+									}
+								],
+								"id": 0,
+								"object_ref": [
+									{
+										"abs_a": 1,
+										"abs_angle": 360,
+										"abs_pivot_x": 0,
+										"abs_pivot_y": 1,
+										"abs_scale_x": 1,
+										"abs_scale_y": 1,
+										"abs_x": -140,
+										"abs_y": -117.5,
+										"file": 9,
+										"folder": 0,
+										"id": 0,
+										"key": 0,
+										"name": "mm_mouth_aa",
+										"timeline": "0",
+										"z_index": "0"
+									}
+								]
+							},
+							{
+								"bone_ref": [
+									{
+										"id": 0,
+										"key": 0,
+										"timeline": 1
+									}
+								],
+								"id": 1,
+								"object_ref": [
+									{
+										"id": 0,
+										"key": 1,
+										"timeline": "0",
+										"z_index": "0"
+									}
+								],
+								"time": 430
+							},
+							{
+								"bone_ref": [
+									{
+										"id": 0,
+										"key": 0,
+										"timeline": 1
+									}
+								],
+								"id": 2,
+								"object_ref": [
+									{
+										"id": 0,
+										"key": 2,
+										"timeline": "0",
+										"z_index": "0"
+									}
+								],
+								"time": 706
+							},
+							{
+								"bone_ref": [
+									{
+										"id": 0,
+										"key": 0,
+										"timeline": 1
+									}
+								],
+								"id": 3,
+								"object_ref": [
+									{
+										"id": 0,
+										"key": 3,
+										"timeline": "0",
+										"z_index": "0"
+									}
+								],
+								"time": 1259
+							},
+							{
+								"bone_ref": [
+									{
+										"id": 0,
+										"key": 0,
+										"timeline": 1
+									}
+								],
+								"id": 4,
+								"object_ref": [
+									{
+										"id": 0,
+										"key": 4,
+										"timeline": "0",
+										"z_index": "0"
+									}
+								],
+								"time": 1569
+							},
+							{
+								"bone_ref": [
+									{
+										"id": 0,
+										"key": 0,
+										"timeline": 1
+									}
+								],
+								"id": 5,
+								"object_ref": [
+									{
+										"id": 0,
+										"key": 5,
+										"timeline": "0",
+										"z_index": "0"
+									}
+								],
+								"time": 2242
+							},
+							{
+								"bone_ref": [
+									{
+										"id": 0,
+										"key": 0,
+										"timeline": 1
+									}
+								],
+								"id": 6,
+								"object_ref": [
+									{
+										"id": 0,
+										"key": 6,
+										"timeline": "0",
+										"z_index": "0"
+									}
+								],
+								"time": 3298
+							},
+							{
+								"bone_ref": [
+									{
+										"id": 0,
+										"key": 0,
+										"timeline": 1
+									}
+								],
+								"id": 7,
+								"object_ref": [
+									{
+										"id": 0,
+										"key": 7,
+										"timeline": "0",
+										"z_index": "0"
+									}
+								],
+								"time": 3780
+							},
+							{
+								"bone_ref": [
+									{
+										"id": 0,
+										"key": 0,
+										"timeline": 1
+									}
+								],
+								"id": 8,
+								"object_ref": [
+									{
+										"id": 0,
+										"key": 8,
+										"timeline": "0",
+										"z_index": "0"
+									}
+								],
+								"time": 4453
+							}
+						]
+					},
+					"name": "Talking",
+					"r": 93,
+					"t": -57,
+					"timeline": [
+						{
+							"id": 0,
+							"key": [
+								{
+									"id": 0,
+									"object": {
+										"file": 9,
+										"folder": 0,
+										"x": -140,
+										"y": 117.5
+									},
+									"spin": 0
+								},
+								{
+									"id": 1,
+									"object": {
+										"file": 8,
+										"folder": 0,
+										"x": -140,
+										"y": 117.5
+									},
+									"spin": 0,
+									"time": 430
+								},
+								{
+									"id": 2,
+									"object": {
+										"file": 2,
+										"folder": 0,
+										"x": -140,
+										"y": 117.5
+									},
+									"spin": 0,
+									"time": 706
+								},
+								{
+									"id": 3,
+									"object": {
+										"file": 1,
+										"folder": 0,
+										"x": -140,
+										"y": 117.5
+									},
+									"spin": 0,
+									"time": 1259
+								},
+								{
+									"id": 4,
+									"object": {
+										"file": 3,
+										"folder": 0,
+										"x": -140,
+										"y": 117.5
+									},
+									"spin": 0,
+									"time": 1569
+								},
+								{
+									"id": 5,
+									"object": {
+										"file": 5,
+										"folder": 0,
+										"x": -140,
+										"y": 117.5
+									},
+									"spin": 0,
+									"time": 2242
+								},
+								{
+									"id": 6,
+									"object": {
+										"file": 8,
+										"folder": 0,
+										"x": -140,
+										"y": 117.5
+									},
+									"spin": 0,
+									"time": 3298
+								},
+								{
+									"id": 7,
+									"object": {
+										"file": 2,
+										"folder": 0,
+										"x": -140,
+										"y": 117.5
+									},
+									"spin": 0,
+									"time": 3780
+								},
+								{
+									"id": 8,
+									"object": {
+										"file": 7,
+										"folder": 0,
+										"x": -140,
+										"y": 117.5
+									},
+									"spin": 0,
+									"time": 4453
+								}
+							],
+							"name": "mm_mouth_aa",
+							"obj": 0
+						},
+						{
+							"id": 1,
+							"key": [
+								{
+									"bone": {
+										"angle": 90,
+										"scale_y": 6.8571428571428585,
+										"x": 0.9523809523809521,
+										"y": -2.8571428571428568
+									},
+									"id": 0,
+									"spin": 0
+								}
+							],
+							"name": "bone_000",
+							"obj": 1,
+							"object_type": "bone"
+						}
+					]
+				}
+			],
+			"character_map": [],
+			"id": 0,
+			"name": "entity_000",
+			"obj_info": [
+				{
+					"frames": [
+						{
+							"file": 7,
+							"folder": 0
+						},
+						{
+							"file": 6,
+							"folder": 0
+						},
+						{
+							"file": 9,
+							"folder": 0
+						},
+						{
+							"file": 8,
+							"folder": 0
+						},
+						{
+							"file": 2,
+							"folder": 0
+						},
+						{
+							"file": 1,
+							"folder": 0
+						},
+						{
+							"file": 3,
+							"folder": 0
+						},
+						{
+							"file": 5,
+							"folder": 0
+						}
+					],
+					"name": "entity_000_mm_mouth_aa",
+					"realname": "mm_mouth_aa",
+					"type": "sprite"
+				},
+				{
+					"h": 10,
+					"name": "entity_000_bone_000",
+					"realname": "bone_000",
+					"type": "bone",
+					"w": 114.28571428571428
+				}
+			]
+		}
+	],
+	"folder": [
+		{
+			"file": [
+				{
+					"height": 256,
+					"id": 0,
+					"name": "mm_mouth_aa.png",
+					"pivot_x": 0,
+					"pivot_y": 1,
+					"width": 256
+				},
+				{
+					"height": 256,
+					"id": 1,
+					"name": "mm_mouth_fuh.png",
+					"pivot_x": 0,
+					"pivot_y": 1,
+					"width": 256
+				},
+				{
+					"height": 256,
+					"id": 2,
+					"name": "mm_mouth_laa.png",
+					"pivot_x": 0,
+					"pivot_y": 1,
+					"width": 256
+				},
+				{
+					"height": 256,
+					"id": 3,
+					"name": "mm_mouth_oh.png",
+					"pivot_x": 0,
+					"pivot_y": 1,
+					"width": 256
+				},
+				{
+					"height": 256,
+					"id": 4,
+					"name": "mm_mouth_oo.png",
+					"pivot_x": 0,
+					"pivot_y": 1,
+					"width": 256
+				},
+				{
+					"height": 256,
+					"id": 5,
+					"name": "mm_mouth_open.png",
+					"pivot_x": 0,
+					"pivot_y": 1,
+					"width": 256
+				},
+				{
+					"height": 256,
+					"id": 6,
+					"name": "mm_mouth_smile.png",
+					"pivot_x": 0,
+					"pivot_y": 1,
+					"width": 256
+				},
+				{
+					"height": 256,
+					"id": 7,
+					"name": "mm_mouth_straight.png",
+					"pivot_x": 0,
+					"pivot_y": 1,
+					"width": 256
+				},
+				{
+					"height": 256,
+					"id": 8,
+					"name": "mm_mouth_frown.png",
+					"pivot_x": 0,
+					"pivot_y": 1,
+					"width": 256
+				},
+				{
+					"height": 256,
+					"id": 9,
+					"name": "mm_mouth_ee.png",
+					"pivot_x": 0,
+					"pivot_y": 1,
+					"width": 256
+				}
+			],
+			"id": 0
+		}
+	],
+	"generator": "BrashMonkey Spriter",
+	"generator_version": "r11",
+	"scon_version": "1.0"
+}

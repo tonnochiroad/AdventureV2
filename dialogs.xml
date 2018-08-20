@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MyGame> 
+
+	<dialog id='1' type="normal"> 
+		<line id='1' portrait='Teacher' mood='neutral' pos='right'>Hi there</line> 
+		<line id='2' portrait='Student' mood='neutral' pos='left'>Why hello</line>
+		<line id='3' portrait='Teacher' mood='neutral' pos='right'>And how are you today?</line>
+		<line id='4' portrait='Student' mood='surprised' pos='left'>I'm fine thank you</line>
+		<line id='5' portrait='Teacher' mood='neutral' pos='right'>Listen I wanted to ask you something,</line>
+		<line id='6' portrait='Student' mood='neutral' pos='right'>And it's important so please pay attention</line>
+		<line id='7' portrait='Teacher' mood='neutral' pos='left'>Shoot, ask me anything</line>
+		<line id='8' portrait='Student' mood='neutral' pos='right'>Do fish swim south for the winter?</line>
+		<nextdialog>2</nextdialog>
+	</dialog>
+	<dialog id='2' type='question'>
+		<question id='1' portrait='Teacher' mood='question' pos='left'>Do fish swim south for the winter?</question>
+		<answer id='1'>Yes</answer>
+		<nextdialog id='1'>3</nextdialog>
+		<answer id='2'>No</answer>
+		<nextdialog id='2'>4</nextdialog>		
+		<answer id='3'>Wait, lets start again...</answer>
+		<nextdialog id='3'>1</nextdialog>
+	</dialog>
+	<dialog id='3' type="normal">
+		<line id='1' portrait='Student' mood='aggro' pos='left'>Yes</line>
+		<line id='2' portrait='Teacher' mood='neutral' pos='right'>No way! Just a wild guess on my part</line>
+		<line id='3' portrait='Student' mood='neutral' pos='right'>Fancy that!</line>
+		<nextdialog>5</nextdialog>
+	</dialog>
+	<dialog id='4' type="normal">
+		<line id='1' portrait='Student' mood='surprised' pos='left'>No</line>
+		<line id='2' portrait='Teacher' mood='neutral' pos='right'>...</line>
+		<line id='3' portrait='Student' mood='surprised' pos='left'>...</line>
+		<line id='4' portrait='Teacher' mood='neutral' pos='right'>You sure?</line>
+		<line id='5' portrait='Student' mood='neutral' pos='left'>I'm sure.</line>
+	<nextdialog>5</nextdialog>
+	</dialog>
+	<dialog id='5' type="end">
+	</dialog>
+	<dialog id='6' type="normal">
+		<line id='1' portrait='OldOne' mood='neutral' pos='left'>Hello</line>
+		<line id='2' portrait='Spirit' mood='neutral' pos='right'>Oh joy, it’s you again.</line>
+	<nextdialog>7</nextdialog>
+	</dialog>
+	<dialog id='7' type="question" answers="3">
+		<question id='1' portrait='Teacher' mood='question' pos='left'>Oh joy, it’s you again.?</question>
+		<answer id='1'>A ambiguous response</answer>
+		<nextdialog id='1'>3</nextdialog>
+		<answer id='2'>Feign old age</answer>
+		<nextdialog id='2'>4</nextdialog>		
+		<answer id='3'>How dare he!</answer>
+		<nextdialog id='3'>1</nextdialog>
+	</dialog>
+</MyGame>
+

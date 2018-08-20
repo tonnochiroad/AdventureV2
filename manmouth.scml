@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spriter_data scml_version="1.0" generator="BrashMonkey Spriter" generator_version="r11">
+    <folder id="0">
+        <file id="0" name="mm_mouth_aa.png" width="256" height="256" pivot_x="0" pivot_y="1"/>
+        <file id="1" name="mm_mouth_fuh.png" width="256" height="256" pivot_x="0" pivot_y="1"/>
+        <file id="2" name="mm_mouth_laa.png" width="256" height="256" pivot_x="0" pivot_y="1"/>
+        <file id="3" name="mm_mouth_oh.png" width="256" height="256" pivot_x="0" pivot_y="1"/>
+        <file id="4" name="mm_mouth_oo.png" width="256" height="256" pivot_x="0" pivot_y="1"/>
+        <file id="5" name="mm_mouth_open.png" width="256" height="256" pivot_x="0" pivot_y="1"/>
+        <file id="6" name="mm_mouth_smile.png" width="256" height="256" pivot_x="0" pivot_y="1"/>
+        <file id="7" name="mm_mouth_straight.png" width="256" height="256" pivot_x="0" pivot_y="1"/>
+        <file id="8" name="mm_mouth_frown.png" width="256" height="256" pivot_x="0" pivot_y="1"/>
+        <file id="9" name="mm_mouth_ee.png" width="256" height="256" pivot_x="0" pivot_y="1"/>
+    </folder>
+    <entity id="0" name="entity_000">
+        <obj_info name="entity_000_mm_mouth_aa" realname="mm_mouth_aa" type="sprite">
+            <frames>
+                <i folder="0" file="7"/>
+                <i folder="0" file="6"/>
+                <i folder="0" file="9"/>
+                <i folder="0" file="8"/>
+                <i folder="0" file="2"/>
+                <i folder="0" file="1"/>
+                <i folder="0" file="3"/>
+                <i folder="0" file="5"/>
+            </frames>
+        </obj_info>
+        <obj_info name="entity_000_bone_000" realname="bone_000" type="bone" w="114.286" h="10"/>
+        <animation id="0" name="Nothing" length="1000" interval="100" l="-111" t="-56" r="93" b="64">
+            <mainline>
+                <key id="0">
+                    <bone_ref id="0" timeline="1" key="0"/>
+                    <object_ref id="0" name="mm_mouth_aa" folder="0" file="7" abs_x="-140" abs_y="117.5" abs_angle="360" abs_scale_x="1" abs_scale_y="1" abs_a="1" timeline="0" key="0" z_index="0"/>
+                </key>
+            </mainline>
+            <timeline id="0" obj="0" name="mm_mouth_aa">
+                <key id="0" spin="0">
+                    <object folder="0" file="7" x="-140" y="117.5"/>
+                </key>
+            </timeline>
+            <timeline id="1" obj="1" name="bone_000" object_type="bone">
+                <key id="0" spin="0">
+                    <bone x="0.952381" y="-2.857143" angle="90" scale_y="6.857143"/>
+                </key>
+            </timeline>
+        </animation>
+        <animation id="1" name="Wry" length="1000" interval="100" l="-117" t="-56" r="71" b="65">
+            <mainline>
+                <key id="0">
+                    <bone_ref id="0" timeline="1" key="0"/>
+                    <object_ref id="0" name="mm_mouth_aa" folder="0" file="6" abs_x="-140" abs_y="117.5" abs_angle="360" abs_scale_x="1" abs_scale_y="1" abs_a="1" timeline="0" key="0" z_index="0"/>
+                </key>
+            </mainline>
+            <timeline id="0" obj="0" name="mm_mouth_aa">
+                <key id="0" spin="0">
+                    <object folder="0" file="6" x="-140" y="117.5"/>
+                </key>
+            </timeline>
+            <timeline id="1" obj="1" name="bone_000" object_type="bone">
+                <key id="0" spin="0">
+                    <bone x="0.952381" y="-2.857143" angle="90" scale_y="6.857143"/>
+                </key>
+            </timeline>
+        </animation>
+        <animation id="2" name="Talking" length="5000" interval="100" l="-111" t="-57" r="93" b="91">
+            <mainline>
+                <key id="0">
+                    <bone_ref id="0" timeline="1" key="0"/>
+                    <object_ref id="0" name="mm_mouth_aa" folder="0" file="9" abs_x="-140" abs_y="117.5" abs_angle="360" abs_scale_x="1" abs_scale_y="1" abs_a="1" timeline="0" key="0" z_index="0"/>
+                </key>
+                <key id="1" time="430">
+                    <bone_ref id="0" timeline="1" key="0"/>
+                    <object_ref id="0" timeline="0" key="1" z_index="0"/>
+                </key>
+                <key id="2" time="706">
+                    <bone_ref id="0" timeline="1" key="0"/>
+                    <object_ref id="0" timeline="0" key="2" z_index="0"/>
+                </key>
+                <key id="3" time="1259">
+                    <bone_ref id="0" timeline="1" key="0"/>
+                    <object_ref id="0" timeline="0" key="3" z_index="0"/>
+                </key>
+                <key id="4" time="1569">
+                    <bone_ref id="0" timeline="1" key="0"/>
+                    <object_ref id="0" timeline="0" key="4" z_index="0"/>
+                </key>
+                <key id="5" time="2242">
+                    <bone_ref id="0" timeline="1" key="0"/>
+                    <object_ref id="0" timeline="0" key="5" z_index="0"/>
+                </key>
+                <key id="6" time="3298">
+                    <bone_ref id="0" timeline="1" key="0"/>
+                    <object_ref id="0" timeline="0" key="6" z_index="0"/>
+                </key>
+                <key id="7" time="3780">
+                    <bone_ref id="0" timeline="1" key="0"/>
+                    <object_ref id="0" timeline="0" key="7" z_index="0"/>
+                </key>
+                <key id="8" time="4453">
+                    <bone_ref id="0" timeline="1" key="0"/>
+                    <object_ref id="0" timeline="0" key="8" z_index="0"/>
+                </key>
+            </mainline>
+            <timeline id="0" obj="0" name="mm_mouth_aa">
+                <key id="0" spin="0">
+                    <object folder="0" file="9" x="-140" y="117.5"/>
+                </key>
+                <key id="1" time="430" spin="0">
+                    <object folder="0" file="8" x="-140" y="117.5"/>
+                </key>
+                <key id="2" time="706" spin="0">
+                    <object folder="0" file="2" x="-140" y="117.5"/>
+                </key>
+                <key id="3" time="1259" spin="0">
+                    <object folder="0" file="1" x="-140" y="117.5"/>
+                </key>
+                <key id="4" time="1569" spin="0">
+                    <object folder="0" file="3" x="-140" y="117.5"/>
+                </key>
+                <key id="5" time="2242" spin="0">
+                    <object folder="0" file="5" x="-140" y="117.5"/>
+                </key>
+                <key id="6" time="3298" spin="0">
+                    <object folder="0" file="8" x="-140" y="117.5"/>
+                </key>
+                <key id="7" time="3780" spin="0">
+                    <object folder="0" file="2" x="-140" y="117.5"/>
+                </key>
+                <key id="8" time="4453" spin="0">
+                    <object folder="0" file="7" x="-140" y="117.5"/>
+                </key>
+            </timeline>
+            <timeline id="1" obj="1" name="bone_000" object_type="bone">
+                <key id="0" spin="0">
+                    <bone x="0.952381" y="-2.857143" angle="90" scale_y="6.857143"/>
+                </key>
+            </timeline>
+        </animation>
+    </entity>
+</spriter_data>

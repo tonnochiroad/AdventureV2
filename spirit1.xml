@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MyGame> 
+
+	<dialog id='10' type="normal"> 
+		<line id='1' portrait='OldOne' mood='neutral' pos='left'>Hello</line> 
+		<line id='2' portrait='Spirit' mood='neutral' pos='right'>Oh joy, it’s you again.</line>
+		<nextdialog>20</nextdialog>
+	</dialog>
+	
+	<dialog id='20' type='question3'>
+		<question id='1' portrait='OldOne' mood='question' pos='left'>Oh joy, it’s you again.</question>
+		<answer id='1'>[ Enigmatic response ]</answer>
+		<nextdialog id='1'>21</nextdialog>
+		<answer id='2'>[ Feign old age ]</answer>
+		<nextdialog id='2'>22</nextdialog>		
+		<answer id='3'>[ How dare you! ]</answer>
+		<nextdialog id='3'>23</nextdialog>
+	</dialog>
+	
+	<dialog id='21' type="normal">
+		<line id='1' portrait='OldOne' mood='neutral' pos='left'>And so it is.</line> 
+		<line id='2' portrait='Spirit' mood='neutral' pos='right'>Yes, yes, yes - the wise old one speaks! Last I checked wasn’t I supposed to be the mentor figure in this partnership? </line>
+		<nextdialog>30</nextdialog>
+	</dialog>
+	
+	<dialog id='22' type="normal">
+		<line id='1' portrait='OldOne' mood='neutral' pos='left'>Eh? Who now? Where you say?</line> 
+		<line id='2' portrait='Spirit' mood='neutral' pos='right'>Seriously? Just how fossilized are you old timer? </line>
+		<line id='3' portrait='OldOne' mood='neutral' pos='left'>Hehehe</line> 
+		<line id='4' portrait='Spirit' mood='neutral' pos='right'>Alright alright! Enough with the outdated sense of humor. Dunno if i can take much more of your ‘lollygagging’ </line>
+		<line id='5' portrait='OldOne' mood='neutral' pos='left'>‘Lollygagging’ - not bad young one!</line> 
+		<nextdialog>30</nextdialog>
+	</dialog>
+	
+	<dialog id='23' type="normal">
+		<line id='1' portrait='OldOne' mood='neutral' pos='left'>Not how you speak to your elders young man!</line> 
+		<line id='2' portrait='Spirit' mood='neutral' pos='right'>I should speak to you any which way I want, less you forget my standing as an immortal master of the written word...</line>
+		<line id='3' portrait='Spirit' mood='neutral' pos='right'>...and yours as a curmudgeonly old interloper! </line>
+		<line id='4' portrait='OldOne' mood='neutral' pos='left'>Charming the youth of today</line> 
+		<nextdialog>30</nextdialog>
+	</dialog>
+	
+	<dialog id='30' type="normal">
+		<line id='1' portrait='Spirit' mood='neutral' pos='right'>Bothersome though you are I said I’d help you and what kind of spirit would I be if I didn't live up to my metaphysical word. </line>
+		<nextdialog>40</nextdialog>
+	</dialog>
+	
+	<dialog id='40' type='question3'>
+		<question id='1' portrait='OldOne' mood='question' pos='left'>Bothersome though you are I said I’d help you and what kind of spirit would I be if I didn't live up to my metaphysical word. </question>
+		<answer id='1'>[ Philosophical riposte ]</answer>
+		<nextdialog id='1'>41</nextdialog>
+		<answer id='2'>[ Appreciate the help ]</answer>
+		<nextdialog id='2'>42</nextdialog>		
+		<answer id='3'>[ Knock him down a peg ]</answer>
+		<nextdialog id='3'>43</nextdialog>
+	</dialog>
+	
+	<dialog id='41' type="normal">
+		<line id='1' portrait='OldOne' mood='neutral' pos='left'>Spirits exist not to keep promises but to demonstrate nature's lessons for good or ill.</line> 
+		<line id='2' portrait='Spirit' mood='neutral' pos='right'>And old hermits seem only to exist with the purpose of keeping me from my eternal sleep, but you don't see me complaining! </line>
+		<nextdialog>50</nextdialog>
+	</dialog>
+	
+	<dialog id='42' type="normal">
+		<line id='1' portrait='OldOne' mood='neutral' pos='left'>Very kind of you young man. Where would any of us be without the spirits of this world.</line> 
+		<line id='2' portrait='Spirit' mood='neutral' pos='right'>Now there is the respect any well-appointed servant of the afterlife rightly deserves. Thank you kind mortal.</line>
+		<nextdialog>50</nextdialog>
+	</dialog>
+	
+	<dialog id='43' type="normal">
+		<line id='1' portrait='OldOne' mood='neutral' pos='left'>You’d be a spirit that got on my bad side young laddy.</line>
+		<line id='2' portrait='OldOne' mood='neutral' pos='left'>So I suggest you drop the self-satisfied act and get on with helping your elder better one.</line> 
+		<line id='3' portrait='Spirit' mood='neutral' pos='right'>Elder yes, better...</line>
+		<line id='4' portrait='Spirit' mood='neutral' pos='right'>Well let’s just say I won't humiliate you by asking how many poetry commendations you've received over your presumably ancient lifetime.</line>
+		<line id='5' portrait='Spirit' mood='neutral' pos='right'>But suffice to say...</line>
+		<line id='6' portrait='OldOne' mood='neutral' pos='left'>I should recoil in awe before your grand overachieving magnificence?</line> 
+		<line id='7' portrait='Spirit' mood='neutral' pos='right'>And don't you forget it!</line>
+		<line id='8' portrait='OldOne' mood='neutral' pos='left'>Urgh!</line> 
+		<nextdialog>50</nextdialog>
+	</dialog>
+	
+	<dialog id='50' type="normal">
+		<line id='1' portrait='Spirit' mood='neutral' pos='right'>Listen now, if we don't stop that volcano, she’ll bring every brand of anger and malice you’ve ever imagined down upon this elegant landscape...</line>
+		<line id='2' portrait='Spirit' mood='neutral' pos='right'>...not to mention it’s blissfully indifferent inhabitants you worry so much for.</line>
+		<line id='3' portrait='Spirit' mood='neutral' pos='right'>But fear not! I have an idea for how we might take on the issue presently. </line>
+		<line id='4' portrait='Spirit' mood='neutral' pos='right'>Only snag is I need you as my proxy agent in this mortal plane, and for you to be, well, over there.</line>
+		<line id='5' portrait='OldOne' mood='neutral' pos='left'>Um … you’re pointing at the volcano.</line> 
+		<line id='6' portrait='Spirit' mood='neutral' pos='right'>Well, to be more precise the mouth of the aforementioned leviathan, but yes - broadly speaking you are correct.</line>
+		<nextdialog>60</nextdialog>
+	</dialog>
+	
+	<dialog id='60' type='question3'>
+		<question id='1' portrait='OldOne' mood='question' pos='left'>Well, to be more precise the mouth of the aforementioned leviathan, but yes - broadly speaking you are correct.</question>
+		<answer id='1'>[ Reflective acceptance ]</answer>
+		<nextdialog id='1'>61</nextdialog>
+		<answer id='2'>[ Playful acceptance ]</answer>
+		<nextdialog id='2'>62</nextdialog>		
+		<answer id='3'>[ Sarcastic acceptance ]</answer>
+		<nextdialog id='3'>63</nextdialog>
+	</dialog>
+	
+	<dialog id='61' type="normal">
+		<line id='1' portrait='OldOne' mood='neutral' pos='left'>I understand. All journeys require terminus. Except yours I fear. Eternity cannot be an easy burden to bear.</line> 
+		<line id='2' portrait='Spirit' mood='neutral' pos='right'>Wha?! … I’m doing fine thank you very much. Eternity is an honor! And besides, you wouldn’t understand! </line>
+		<nextdialog>70</nextdialog>
+	</dialog>
+	
+	<dialog id='62' type="normal">
+		<line id='1' portrait='OldOne' mood='neutral' pos='left'>No worries my young friend, I have plenty of stories to entertain us for the long journey ahead.</line> 
+		<line id='2' portrait='Spirit' mood='neutral' pos='right'>Gods! Thank you but I’ll be quite alright. Thank the heavens I can spirit myeslf away at will. </line>
+		<nextdialog>70</nextdialog>
+	</dialog>
+	
+	<dialog id='63' type="normal">
+		<line id='1' portrait='OldOne' mood='neutral' pos='left'>You mean that distant speck on the horizon, so obscure my eyes strain to discern...</line> 
+		<line id='2' portrait='OldOne' mood='neutral' pos='left'>...so far-flung my hamstrings shudder to contemplate! </line> 
+		<line id='3' portrait='Spirit' mood='neutral' pos='right'>Yes that one! You know there was a time when folk would fall over each other to help out a spirit in need.  </line>
+		<line id='4' portrait='OldOne' mood='neutral' pos='left'>My arthritic joints beg to differ. </line> 
+		<nextdialog>70</nextdialog>
+	</dialog>
+	
+	<dialog id='70' type="normal">
+		<line id='1' portrait='Spirit' mood='neutral' pos='right'>Anyways...</line>
+		<line id='2' portrait='Spirit' mood='neutral' pos='right'>Unfortunately for now this river blocks your path.</line>
+		<line id='3' portrait='Spirit' mood='neutral' pos='right'>I have a Haiku that may be of help but strangely enough I need calm waters for such masterful verse to take its effect.</line>
+		<line id='4' portrait='OldOne' mood='neutral' pos='left'>Strange indeed...</line>
+		<line id='5' portrait='Spirit' mood='neutral' pos='right'>I’m afraid you’ll need to figure this one out on your own if we are to proceed.</line>
+		<line id='6' portrait='Spirit' mood='neutral' pos='right'>Besides it’s not a bad bit of Haiku practice for you while I ruminate on larger and more profound concerns.  </line>
+		<nextdialog>80</nextdialog>
+	</dialog>
+	
+	<dialog id='80' type='question4'>
+		<question id='1' portrait='OldOne' mood='question' pos='left'>Besides it’s not a bad bit of Haiku practice for you while I ruminate on larger and more profound concerns.</question>
+		<answer id='1'>[ Haiku Practice? ]</answer>
+		<nextdialog id='1'>91</nextdialog>
+		<answer id='2'>[ I need to do what? ] </answer>
+		<nextdialog id='2'>92</nextdialog>		
+		<answer id='3'>[ How do I do that? ]</answer>
+		<nextdialog id='3'>93</nextdialog>
+		<answer id='4'>[ OK then. I’ll be off ]</answer>
+		<nextdialog id='4'>94</nextdialog>
+	</dialog>
+	
+		<dialog id='89' type="normal">
+		<line id='1' portrait='OldOne' mood='neutral' pos='left'>Hello again</line> 
+		<line id='2' portrait='Spirit' mood='neutral' pos='right'>You're back. Lost already are we? </line>
+		<nextdialog>90</nextdialog>
+	</dialog>
+	
+		<dialog id='90' type='question4'>
+		<question id='1' portrait='OldOne' mood='question' pos='left'>Any more questions?</question>
+		<answer id='1'>[ Haiku Practice? ]</answer>
+		<nextdialog id='1'>91</nextdialog>
+		<answer id='2'>[ I need to do what? ] </answer>
+		<nextdialog id='2'>92</nextdialog>		
+		<answer id='3'>[ How do I do that? ]</answer>
+		<nextdialog id='3'>93</nextdialog>
+		<answer id='4'>[ OK then. I’ll be off ]</answer>
+		<nextdialog id='4'>94</nextdialog>
+	</dialog>
+	
+	<dialog id='91' type="normal">
+		<line id='1' portrait='OldOne' mood='neutral' pos='left'>Haikus? You mean the poems!? I’m a little lost…</line> 
+		<line id='2' portrait='Spirit' mood='neutral' pos='right'>Your seem to be forgetting things in your old age my decrepit friend. To put it in painfully simple terms for you -  </line>
+		<line id='3' portrait='Spirit' mood='neutral' pos='right'>Haikus are poems, but they are also a bridge between man's intellect and the very fabric of the natural world around us.</line>
+		<line id='4' portrait='Spirit' mood='neutral' pos='right'>Using inspiration we find in nature as raw building blocks and juxtaposing those ingredients creatively we can control anything ...</line>
+		<line id='5' portrait='Spirit' mood='neutral' pos='right'>... from the direction of the wind to the colour of the soil, the motion of the stars, to the very inception of animal thought.</line>
+		<nextdialog>90</nextdialog>
+	</dialog>
+	
+		<dialog id='92' type="normal">
+		<line id='1' portrait='OldOne' mood='neutral' pos='left'>Sorry, but you mind explaining again what I'm supposed to be doing?</line> 
+		<line id='2' portrait='Spirit' mood='neutral' pos='right'>I should have known I’d end up repeating myself every 5 minutes paired with an old age pensioner like you!</line>
+		<line id='3' portrait='Spirit' mood='neutral' pos='right'>You need to compose a Haiku to calm the waters of the River.  </line>
+		<line id='4' portrait='Spirit' mood='neutral' pos='right'>Once the water is calm and the surface still I’ll be able show you some Haiku Mastery that will knock your socks off!</line>
+		<line id='5' portrait='Spirit' mood='neutral' pos='right'>And get you across the river of course. </line>
+		<nextdialog>90</nextdialog>
+	</dialog>
+	
+		<dialog id='93' type="normal">
+		<line id='1' portrait='OldOne' mood='neutral' pos='left'>And how would you suggest I go about composing this Haiku for the river? </line> 
+		<line id='2' portrait='Spirit' mood='neutral' pos='right'>Haikus require inspiration from the natural world.</line>
+		<line id='3' portrait='Spirit' mood='neutral' pos='right'>You can collect fragments of such inspiration by simply walking around and writing what you see. </line>
+		<line id='4' portrait='Spirit' mood='neutral' pos='right'>From that you can arrange and compose poetry in your notebook.</line>
+		<line id='5' portrait='Spirit' mood='neutral' pos='right'>When you think you’ve got something good simply read it out to test if it has achieved the desired effect.</line>
+		<nextdialog>90</nextdialog>
+	</dialog>
+	
+			<dialog id='94' type="normal">
+		<line id='1' portrait='OldOne' mood='neutral' pos='left'>Ok then, see you around spirit! </line> 
+		<line id='2' portrait='Spirit' mood='neutral' pos='right'>Indeed</line>
+		<nextdialog>999</nextdialog>
+	</dialog>
+	
+	
+	<dialog id='999' type="end">
+	</dialog>
+</MyGame>
+

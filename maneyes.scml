@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spriter_data scml_version="1.0" generator="BrashMonkey Spriter" generator_version="r11">
+    <folder id="0">
+        <file id="0" name="maC_eye_standard.png" width="512" height="256" pivot_x="0" pivot_y="1"/>
+        <file id="1" name="maC_white.png" width="87" height="100" pivot_x="0" pivot_y="1"/>
+        <file id="2" name="maC_eyeball.png" width="66" height="67" pivot_x="0" pivot_y="1"/>
+        <file id="3" name="maC_eye_wide.png" width="512" height="256" pivot_x="0" pivot_y="1"/>
+        <file id="4" name="maC_eye_standard_blink.png" width="512" height="256" pivot_x="0" pivot_y="1"/>
+    </folder>
+    <entity id="0" name="entity_000">
+        <obj_info name="entity_000_maC_eye_standard" realname="maC_eye_standard" type="sprite">
+            <frames>
+                <i folder="0" file="0"/>
+                <i folder="0" file="4"/>
+            </frames>
+        </obj_info>
+        <obj_info name="entity_000_maC_white_000" realname="maC_white_000" type="sprite">
+            <frames>
+                <i folder="0" file="1"/>
+            </frames>
+        </obj_info>
+        <obj_info name="entity_000_maC_white_001" realname="maC_white_001" type="sprite">
+            <frames>
+                <i folder="0" file="1"/>
+            </frames>
+        </obj_info>
+        <obj_info name="entity_000_maC_eyeball" realname="maC_eyeball" type="sprite">
+            <frames>
+                <i folder="0" file="2"/>
+            </frames>
+        </obj_info>
+        <obj_info name="entity_000_maC_eyeball_000" realname="maC_eyeball_000" type="sprite">
+            <frames>
+                <i folder="0" file="2"/>
+            </frames>
+        </obj_info>
+        <obj_info name="entity_000_bone_000" realname="bone_000" type="bone" w="116.935" h="10"/>
+        <animation id="0" name="Open" length="1000" interval="100" l="-237" t="-72" r="196" b="50">
+            <mainline>
+                <key id="0">
+                    <bone_ref id="0" timeline="5" key="0"/>
+                    <object_ref id="0" name="maC_white_000" folder="0" file="1" abs_x="-171" abs_y="42" abs_angle="0" abs_scale_x="1.349774" abs_scale_y="0.726423" abs_a="1" timeline="1" key="0" z_index="0"/>
+                    <object_ref id="1" name="maC_white_001" folder="0" file="1" abs_x="47" abs_y="31" abs_angle="0" abs_scale_x="1.349774" abs_scale_y="0.726423" abs_a="1" timeline="2" key="0" z_index="1"/>
+                    <object_ref id="2" name="maC_eyeball" folder="0" file="2" abs_x="77" abs_y="26" abs_angle="0" abs_scale_x="1" abs_scale_y="1" abs_a="1" timeline="3" key="0" z_index="2"/>
+                    <object_ref id="3" name="maC_eyeball_000" folder="0" file="2" abs_x="-144" abs_y="38" abs_angle="0" abs_scale_x="1" abs_scale_y="1" abs_a="1" timeline="4" key="0" z_index="3"/>
+                    <object_ref id="4" name="maC_eye_standard" folder="0" file="0" abs_x="-260" abs_y="138" abs_angle="0" abs_scale_x="1" abs_scale_y="1" abs_a="1" timeline="0" key="0" z_index="4"/>
+                </key>
+            </mainline>
+            <timeline id="0" obj="0" name="maC_eye_standard">
+                <key id="0" spin="0">
+                    <object folder="0" file="0" x="-260" y="138" angle="0"/>
+                </key>
+            </timeline>
+            <timeline id="1" obj="1" name="maC_white_000">
+                <key id="0" spin="0">
+                    <object folder="0" file="1" x="-171" y="42" angle="0" scale_x="1.349774" scale_y="0.726423"/>
+                </key>
+            </timeline>
+            <timeline id="2" obj="2" name="maC_white_001">
+                <key id="0" spin="0">
+                    <object folder="0" file="1" x="47" y="31" angle="0" scale_x="1.349774" scale_y="0.726423"/>
+                </key>
+            </timeline>
+            <timeline id="3" obj="3" name="maC_eyeball">
+                <key id="0" spin="0">
+                    <object folder="0" file="2" x="77" y="26" angle="0"/>
+                </key>
+            </timeline>
+            <timeline id="4" obj="4" name="maC_eyeball_000">
+                <key id="0" spin="0">
+                    <object folder="0" file="2" x="-144" y="38" angle="0"/>
+                </key>
+            </timeline>
+            <timeline id="5" obj="5" name="bone_000" object_type="bone">
+                <key id="0" spin="0">
+                    <bone x="1.612903" y="4.032258" angle="90" scale_y="6.935484"/>
+                </key>
+            </timeline>
+        </animation>
+        <animation id="1" name="Looking" length="5000" interval="100" l="-237" t="-72" r="196" b="50">
+            <mainline>
+                <key id="0">
+                    <bone_ref id="0" timeline="5" key="0"/>
+                    <object_ref id="0" name="maC_white_000" folder="0" file="1" abs_x="-171" abs_y="42" abs_angle="0" abs_scale_x="1.349774" abs_scale_y="0.726423" abs_a="1" timeline="1" key="0" z_index="0"/>
+                    <object_ref id="1" name="maC_white_001" folder="0" file="1" abs_x="47" abs_y="31" abs_angle="0" abs_scale_x="1.349774" abs_scale_y="0.726423" abs_a="1" timeline="2" key="0" z_index="1"/>
+                    <object_ref id="2" name="maC_eyeball" folder="0" file="2" abs_x="77" abs_y="26" abs_angle="0" abs_scale_x="1" abs_scale_y="1" abs_a="1" timeline="3" key="0" z_index="2"/>
+                    <object_ref id="3" name="maC_eyeball_000" folder="0" file="2" abs_x="-144" abs_y="38" abs_angle="0" abs_scale_x="1" abs_scale_y="1" abs_a="1" timeline="4" key="0" z_index="3"/>
+                    <object_ref id="4" name="maC_eye_standard" folder="0" file="0" abs_x="-260" abs_y="138" abs_angle="0" abs_scale_x="1" abs_scale_y="1" abs_a="1" timeline="0" key="0" z_index="4"/>
+                </key>
+                <key id="1" time="2005">
+                    <bone_ref id="0" timeline="5" key="0"/>
+                    <object_ref id="0" timeline="1" key="1" z_index="0"/>
+                    <object_ref id="1" timeline="2" key="1" z_index="1"/>
+                    <object_ref id="2" timeline="3" key="1" z_index="2"/>
+                    <object_ref id="3" timeline="4" key="1" z_index="3"/>
+                    <object_ref id="4" timeline="0" key="1" z_index="4"/>
+                </key>
+                <key id="2" time="2088">
+                    <bone_ref id="0" timeline="5" key="0"/>
+                    <object_ref id="0" timeline="1" key="1" z_index="0"/>
+                    <object_ref id="1" timeline="2" key="1" z_index="1"/>
+                    <object_ref id="2" timeline="3" key="2" z_index="2"/>
+                    <object_ref id="3" timeline="4" key="2" z_index="3"/>
+                    <object_ref id="4" timeline="0" key="1" z_index="4"/>
+                </key>
+                <key id="3" time="3045">
+                    <bone_ref id="0" timeline="5" key="0"/>
+                    <object_ref id="0" timeline="1" key="2" z_index="0"/>
+                    <object_ref id="1" timeline="2" key="2" z_index="1"/>
+                    <object_ref id="2" timeline="3" key="3" z_index="2"/>
+                    <object_ref id="3" timeline="4" key="3" z_index="3"/>
+                    <object_ref id="4" timeline="0" key="2" z_index="4"/>
+                </key>
+                <key id="4" time="3157">
+                    <bone_ref id="0" timeline="5" key="0"/>
+                    <object_ref id="0" timeline="1" key="2" z_index="0"/>
+                    <object_ref id="1" timeline="2" key="2" z_index="1"/>
+                    <object_ref id="2" timeline="3" key="4" z_index="2"/>
+                    <object_ref id="3" timeline="4" key="4" z_index="3"/>
+                    <object_ref id="4" timeline="0" key="2" z_index="4"/>
+                </key>
+                <key id="5" time="4070">
+                    <bone_ref id="0" timeline="5" key="0"/>
+                    <object_ref id="0" timeline="1" key="3" z_index="0"/>
+                    <object_ref id="1" timeline="2" key="3" z_index="1"/>
+                    <object_ref id="2" timeline="3" key="5" z_index="2"/>
+                    <object_ref id="3" timeline="4" key="5" z_index="3"/>
+                    <object_ref id="4" timeline="0" key="3" z_index="4"/>
+                </key>
+                <key id="6" time="4151">
+                    <bone_ref id="0" timeline="5" key="0"/>
+                    <object_ref id="0" timeline="1" key="4" z_index="0"/>
+                    <object_ref id="1" timeline="2" key="4" z_index="1"/>
+                    <object_ref id="2" timeline="3" key="6" z_index="2"/>
+                    <object_ref id="3" timeline="4" key="6" z_index="3"/>
+                    <object_ref id="4" timeline="0" key="4" z_index="4"/>
+                </key>
+            </mainline>
+            <timeline id="0" obj="0" name="maC_eye_standard">
+                <key id="0" spin="0">
+                    <object folder="0" file="0" x="-260" y="138" angle="0"/>
+                </key>
+                <key id="1" time="2005" spin="0">
+                    <object folder="0" file="0" x="-260" y="138" angle="0"/>
+                </key>
+                <key id="2" time="3045" spin="0">
+                    <object folder="0" file="0" x="-260" y="138" angle="0"/>
+                </key>
+                <key id="3" time="4070" spin="0">
+                    <object folder="0" file="0" x="-260" y="138" angle="0"/>
+                </key>
+                <key id="4" time="4151" spin="0">
+                    <object folder="0" file="0" x="-260" y="138" angle="0"/>
+                </key>
+            </timeline>
+            <timeline id="1" obj="1" name="maC_white_000">
+                <key id="0" spin="0">
+                    <object folder="0" file="1" x="-171" y="42" angle="0" scale_x="1.349774" scale_y="0.726423"/>
+                </key>
+                <key id="1" time="2005" spin="0">
+                    <object folder="0" file="1" x="-171" y="42" angle="0" scale_x="1.349774" scale_y="0.726423"/>
+                </key>
+                <key id="2" time="3045" spin="0">
+                    <object folder="0" file="1" x="-171" y="42" angle="0" scale_x="1.349774" scale_y="0.726423"/>
+                </key>
+                <key id="3" time="4070" spin="0">
+                    <object folder="0" file="1" x="-171" y="42" angle="0" scale_x="1.349774" scale_y="0.726423"/>
+                </key>
+                <key id="4" time="4151" spin="0">
+                    <object folder="0" file="1" x="-171" y="42" angle="0" scale_x="1.349774" scale_y="0.726423"/>
+                </key>
+            </timeline>
+            <timeline id="2" obj="2" name="maC_white_001">
+                <key id="0" spin="0">
+                    <object folder="0" file="1" x="47" y="31" angle="0" scale_x="1.349774" scale_y="0.726423"/>
+                </key>
+                <key id="1" time="2005" spin="0">
+                    <object folder="0" file="1" x="47" y="31" angle="0" scale_x="1.349774" scale_y="0.726423"/>
+                </key>
+                <key id="2" time="3045" spin="0">
+                    <object folder="0" file="1" x="47" y="31" angle="0" scale_x="1.349774" scale_y="0.726423"/>
+                </key>
+                <key id="3" time="4070" spin="0">
+                    <object folder="0" file="1" x="47" y="31" angle="0" scale_x="1.349774" scale_y="0.726423"/>
+                </key>
+                <key id="4" time="4151" spin="0">
+                    <object folder="0" file="1" x="47" y="31" angle="0" scale_x="1.349774" scale_y="0.726423"/>
+                </key>
+            </timeline>
+            <timeline id="3" obj="3" name="maC_eyeball">
+                <key id="0" spin="0">
+                    <object folder="0" file="2" x="77" y="26" angle="0"/>
+                </key>
+                <key id="1" time="2005" spin="0">
+                    <object folder="0" file="2" x="77" y="26" angle="0"/>
+                </key>
+                <key id="2" time="2088" spin="0">
+                    <object folder="0" file="2" x="83.956522" y="28.608696" angle="0"/>
+                </key>
+                <key id="3" time="3045" spin="0">
+                    <object folder="0" file="2" x="83.956522" y="28.608696" angle="0"/>
+                </key>
+                <key id="4" time="3157" spin="0">
+                    <object folder="0" file="2" x="70.069513" y="24.161937" angle="0"/>
+                </key>
+                <key id="5" time="4070" spin="0">
+                    <object folder="0" file="2" x="70.069513" y="24.161937" angle="0"/>
+                </key>
+                <key id="6" time="4151" spin="0">
+                    <object folder="0" file="2" x="77" y="26" angle="0"/>
+                </key>
+            </timeline>
+            <timeline id="4" obj="4" name="maC_eyeball_000">
+                <key id="0" spin="0">
+                    <object folder="0" file="2" x="-144" y="38" angle="0"/>
+                </key>
+                <key id="1" time="2005" spin="0">
+                    <object folder="0" file="2" x="-144" y="38" angle="0"/>
+                </key>
+                <key id="2" time="2088" spin="0">
+                    <object folder="0" file="2" x="-136.098463" y="40.608696" angle="0"/>
+                </key>
+                <key id="3" time="3045" spin="0">
+                    <object folder="0" file="2" x="-136.098463" y="40.608696" angle="0"/>
+                </key>
+                <key id="4" time="3157" spin="0">
+                    <object folder="0" file="2" x="-150.336315" y="36.161937" angle="0"/>
+                </key>
+                <key id="5" time="4070" spin="0">
+                    <object folder="0" file="2" x="-150.336315" y="36.161937" angle="0"/>
+                </key>
+                <key id="6" time="4151" spin="0">
+                    <object folder="0" file="2" x="-144" y="38" angle="0"/>
+                </key>
+            </timeline>
+            <timeline id="5" obj="5" name="bone_000" object_type="bone">
+                <key id="0" spin="0">
+                    <bone x="1.612903" y="4.032258" angle="90" scale_y="6.935484"/>
+                </key>
+            </timeline>
+        </animation>
+        <animation id="2" name="Closed" length="500" interval="100" l="-237" t="-90" r="196" b="54">
+            <mainline>
+                <key id="0">
+                    <bone_ref id="0" timeline="5" key="0"/>
+                    <object_ref id="0" name="maC_white_000" folder="0" file="1" abs_x="-171" abs_y="42" abs_angle="0" abs_scale_x="1.349774" abs_scale_y="0.538572" abs_a="1" timeline="1" key="0" z_index="0"/>
+                    <object_ref id="1" name="maC_white_001" folder="0" file="1" abs_x="47" abs_y="31" abs_angle="0" abs_scale_x="1.349774" abs_scale_y="0.521484" abs_a="1" timeline="2" key="0" z_index="1"/>
+                    <object_ref id="2" name="maC_eyeball" folder="0" file="2" abs_x="77" abs_y="26" abs_angle="0" abs_scale_x="1" abs_scale_y="1" abs_a="1" timeline="3" key="0" z_index="2"/>
+                    <object_ref id="3" name="maC_eyeball_000" folder="0" file="2" abs_x="-144" abs_y="38" abs_angle="0" abs_scale_x="1" abs_scale_y="1" abs_a="1" timeline="4" key="0" z_index="3"/>
+                    <object_ref id="4" name="maC_eye_standard" folder="0" file="4" abs_x="-260" abs_y="138" abs_angle="0" abs_scale_x="1" abs_scale_y="1" abs_a="1" timeline="0" key="0" z_index="4"/>
+                </key>
+            </mainline>
+            <timeline id="0" obj="0" name="maC_eye_standard">
+                <key id="0" spin="0">
+                    <object folder="0" file="4" x="-260" y="138" angle="0"/>
+                </key>
+            </timeline>
+            <timeline id="1" obj="1" name="maC_white_000">
+                <key id="0" spin="0">
+                    <object folder="0" file="1" x="-171" y="42" angle="0" scale_x="1.349774" scale_y="0.538572"/>
+                </key>
+            </timeline>
+            <timeline id="2" obj="2" name="maC_white_001">
+                <key id="0" spin="0">
+                    <object folder="0" file="1" x="47" y="31" angle="0" scale_x="1.349774" scale_y="0.521484"/>
+                </key>
+            </timeline>
+            <timeline id="3" obj="3" name="maC_eyeball">
+                <key id="0" spin="0">
+                    <object folder="0" file="2" x="77" y="26" angle="0"/>
+                </key>
+            </timeline>
+            <timeline id="4" obj="4" name="maC_eyeball_000">
+                <key id="0" spin="0">
+                    <object folder="0" file="2" x="-144" y="38" angle="0"/>
+                </key>
+            </timeline>
+            <timeline id="5" obj="5" name="bone_000" object_type="bone">
+                <key id="0" spin="0">
+                    <bone x="1.612903" y="4.032258" angle="90" scale_y="6.935484"/>
+                </key>
+            </timeline>
+        </animation>
+    </entity>
+</spriter_data>

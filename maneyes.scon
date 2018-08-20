@@ -1,0 +1,1366 @@
+{
+	"entity": [
+		{
+			"animation": [
+				{
+					"b": 50,
+					"id": 0,
+					"interval": 100,
+					"l": -237,
+					"length": 1000,
+					"mainline": {
+						"key": [
+							{
+								"bone_ref": [
+									{
+										"id": 0,
+										"key": 0,
+										"timeline": 5
+									}
+								],
+								"id": 0,
+								"object_ref": [
+									{
+										"abs_a": 1,
+										"abs_angle": 0,
+										"abs_pivot_x": 0,
+										"abs_pivot_y": 1,
+										"abs_scale_x": 1.3497737625848207,
+										"abs_scale_y": 0.7264228846100425,
+										"abs_x": -171,
+										"abs_y": -41.99999999999999,
+										"file": 1,
+										"folder": 0,
+										"id": 0,
+										"key": 0,
+										"name": "maC_white_000",
+										"timeline": "1",
+										"z_index": "0"
+									},
+									{
+										"abs_a": 1,
+										"abs_angle": 0,
+										"abs_pivot_x": 0,
+										"abs_pivot_y": 1,
+										"abs_scale_x": 1.3497737625848207,
+										"abs_scale_y": 0.7264228846100425,
+										"abs_x": 47,
+										"abs_y": -30.999999999999993,
+										"file": 1,
+										"folder": 0,
+										"id": 1,
+										"key": 0,
+										"name": "maC_white_001",
+										"timeline": "2",
+										"z_index": "1"
+									},
+									{
+										"abs_a": 1,
+										"abs_angle": 0,
+										"abs_pivot_x": 0,
+										"abs_pivot_y": 1,
+										"abs_scale_x": 1,
+										"abs_scale_y": 1,
+										"abs_x": 77,
+										"abs_y": -26,
+										"file": 2,
+										"folder": 0,
+										"id": 2,
+										"key": 0,
+										"name": "maC_eyeball",
+										"timeline": "3",
+										"z_index": "2"
+									},
+									{
+										"abs_a": 1,
+										"abs_angle": 0,
+										"abs_pivot_x": 0,
+										"abs_pivot_y": 1,
+										"abs_scale_x": 1,
+										"abs_scale_y": 1,
+										"abs_x": -144,
+										"abs_y": -38,
+										"file": 2,
+										"folder": 0,
+										"id": 3,
+										"key": 0,
+										"name": "maC_eyeball_000",
+										"timeline": "4",
+										"z_index": "3"
+									},
+									{
+										"abs_a": 1,
+										"abs_angle": 0,
+										"abs_pivot_x": 0,
+										"abs_pivot_y": 1,
+										"abs_scale_x": 1,
+										"abs_scale_y": 1,
+										"abs_x": -260,
+										"abs_y": -138,
+										"file": 0,
+										"folder": 0,
+										"id": 4,
+										"key": 0,
+										"name": "maC_eye_standard",
+										"timeline": "0",
+										"z_index": "4"
+									}
+								]
+							}
+						]
+					},
+					"name": "Open",
+					"r": 196,
+					"t": -72,
+					"timeline": [
+						{
+							"id": 0,
+							"key": [
+								{
+									"id": 0,
+									"object": {
+										"angle": 0,
+										"file": 0,
+										"folder": 0,
+										"x": -260,
+										"y": 138
+									},
+									"spin": 0
+								}
+							],
+							"name": "maC_eye_standard",
+							"obj": 0
+						},
+						{
+							"id": 1,
+							"key": [
+								{
+									"id": 0,
+									"object": {
+										"angle": 0,
+										"file": 1,
+										"folder": 0,
+										"scale_x": 1.3497737625848207,
+										"scale_y": 0.7264228846100425,
+										"x": -171,
+										"y": 41.99999999999999
+									},
+									"spin": 0
+								}
+							],
+							"name": "maC_white_000",
+							"obj": 1
+						},
+						{
+							"id": 2,
+							"key": [
+								{
+									"id": 0,
+									"object": {
+										"angle": 0,
+										"file": 1,
+										"folder": 0,
+										"scale_x": 1.3497737625848207,
+										"scale_y": 0.7264228846100425,
+										"x": 47,
+										"y": 30.999999999999993
+									},
+									"spin": 0
+								}
+							],
+							"name": "maC_white_001",
+							"obj": 2
+						},
+						{
+							"id": 3,
+							"key": [
+								{
+									"id": 0,
+									"object": {
+										"angle": 0,
+										"file": 2,
+										"folder": 0,
+										"x": 77,
+										"y": 26
+									},
+									"spin": 0
+								}
+							],
+							"name": "maC_eyeball",
+							"obj": 3
+						},
+						{
+							"id": 4,
+							"key": [
+								{
+									"id": 0,
+									"object": {
+										"angle": 0,
+										"file": 2,
+										"folder": 0,
+										"x": -144,
+										"y": 38
+									},
+									"spin": 0
+								}
+							],
+							"name": "maC_eyeball_000",
+							"obj": 4
+						},
+						{
+							"id": 5,
+							"key": [
+								{
+									"bone": {
+										"angle": 90,
+										"scale_y": 6.935483870967749,
+										"x": 1.612903225806451,
+										"y": 4.032258064516128
+									},
+									"id": 0,
+									"spin": 0
+								}
+							],
+							"name": "bone_000",
+							"obj": 5,
+							"object_type": "bone"
+						}
+					]
+				},
+				{
+					"b": 50,
+					"id": 1,
+					"interval": 100,
+					"l": -237,
+					"length": 5000,
+					"mainline": {
+						"key": [
+							{
+								"bone_ref": [
+									{
+										"id": 0,
+										"key": 0,
+										"timeline": 5
+									}
+								],
+								"id": 0,
+								"object_ref": [
+									{
+										"abs_a": 1,
+										"abs_angle": 0,
+										"abs_pivot_x": 0,
+										"abs_pivot_y": 1,
+										"abs_scale_x": 1.3497737625848207,
+										"abs_scale_y": 0.7264228846100425,
+										"abs_x": -171,
+										"abs_y": -41.99999999999999,
+										"file": 1,
+										"folder": 0,
+										"id": 0,
+										"key": 0,
+										"name": "maC_white_000",
+										"timeline": "1",
+										"z_index": "0"
+									},
+									{
+										"abs_a": 1,
+										"abs_angle": 0,
+										"abs_pivot_x": 0,
+										"abs_pivot_y": 1,
+										"abs_scale_x": 1.3497737625848207,
+										"abs_scale_y": 0.7264228846100425,
+										"abs_x": 47,
+										"abs_y": -30.999999999999993,
+										"file": 1,
+										"folder": 0,
+										"id": 1,
+										"key": 0,
+										"name": "maC_white_001",
+										"timeline": "2",
+										"z_index": "1"
+									},
+									{
+										"abs_a": 1,
+										"abs_angle": 0,
+										"abs_pivot_x": 0,
+										"abs_pivot_y": 1,
+										"abs_scale_x": 1,
+										"abs_scale_y": 1,
+										"abs_x": 77,
+										"abs_y": -26,
+										"file": 2,
+										"folder": 0,
+										"id": 2,
+										"key": 0,
+										"name": "maC_eyeball",
+										"timeline": "3",
+										"z_index": "2"
+									},
+									{
+										"abs_a": 1,
+										"abs_angle": 0,
+										"abs_pivot_x": 0,
+										"abs_pivot_y": 1,
+										"abs_scale_x": 1,
+										"abs_scale_y": 1,
+										"abs_x": -144,
+										"abs_y": -38,
+										"file": 2,
+										"folder": 0,
+										"id": 3,
+										"key": 0,
+										"name": "maC_eyeball_000",
+										"timeline": "4",
+										"z_index": "3"
+									},
+									{
+										"abs_a": 1,
+										"abs_angle": 0,
+										"abs_pivot_x": 0,
+										"abs_pivot_y": 1,
+										"abs_scale_x": 1,
+										"abs_scale_y": 1,
+										"abs_x": -260,
+										"abs_y": -138,
+										"file": 0,
+										"folder": 0,
+										"id": 4,
+										"key": 0,
+										"name": "maC_eye_standard",
+										"timeline": "0",
+										"z_index": "4"
+									}
+								]
+							},
+							{
+								"bone_ref": [
+									{
+										"id": 0,
+										"key": 0,
+										"timeline": 5
+									}
+								],
+								"id": 1,
+								"object_ref": [
+									{
+										"id": 0,
+										"key": 1,
+										"timeline": "1",
+										"z_index": "0"
+									},
+									{
+										"id": 1,
+										"key": 1,
+										"timeline": "2",
+										"z_index": "1"
+									},
+									{
+										"id": 2,
+										"key": 1,
+										"timeline": "3",
+										"z_index": "2"
+									},
+									{
+										"id": 3,
+										"key": 1,
+										"timeline": "4",
+										"z_index": "3"
+									},
+									{
+										"id": 4,
+										"key": 1,
+										"timeline": "0",
+										"z_index": "4"
+									}
+								],
+								"time": 2005
+							},
+							{
+								"bone_ref": [
+									{
+										"id": 0,
+										"key": 0,
+										"timeline": 5
+									}
+								],
+								"id": 2,
+								"object_ref": [
+									{
+										"id": 0,
+										"key": 1,
+										"timeline": "1",
+										"z_index": "0"
+									},
+									{
+										"id": 1,
+										"key": 1,
+										"timeline": "2",
+										"z_index": "1"
+									},
+									{
+										"id": 2,
+										"key": 2,
+										"timeline": "3",
+										"z_index": "2"
+									},
+									{
+										"id": 3,
+										"key": 2,
+										"timeline": "4",
+										"z_index": "3"
+									},
+									{
+										"id": 4,
+										"key": 1,
+										"timeline": "0",
+										"z_index": "4"
+									}
+								],
+								"time": 2088
+							},
+							{
+								"bone_ref": [
+									{
+										"id": 0,
+										"key": 0,
+										"timeline": 5
+									}
+								],
+								"id": 3,
+								"object_ref": [
+									{
+										"id": 0,
+										"key": 2,
+										"timeline": "1",
+										"z_index": "0"
+									},
+									{
+										"id": 1,
+										"key": 2,
+										"timeline": "2",
+										"z_index": "1"
+									},
+									{
+										"id": 2,
+										"key": 3,
+										"timeline": "3",
+										"z_index": "2"
+									},
+									{
+										"id": 3,
+										"key": 3,
+										"timeline": "4",
+										"z_index": "3"
+									},
+									{
+										"id": 4,
+										"key": 2,
+										"timeline": "0",
+										"z_index": "4"
+									}
+								],
+								"time": 3045
+							},
+							{
+								"bone_ref": [
+									{
+										"id": 0,
+										"key": 0,
+										"timeline": 5
+									}
+								],
+								"id": 4,
+								"object_ref": [
+									{
+										"id": 0,
+										"key": 2,
+										"timeline": "1",
+										"z_index": "0"
+									},
+									{
+										"id": 1,
+										"key": 2,
+										"timeline": "2",
+										"z_index": "1"
+									},
+									{
+										"id": 2,
+										"key": 4,
+										"timeline": "3",
+										"z_index": "2"
+									},
+									{
+										"id": 3,
+										"key": 4,
+										"timeline": "4",
+										"z_index": "3"
+									},
+									{
+										"id": 4,
+										"key": 2,
+										"timeline": "0",
+										"z_index": "4"
+									}
+								],
+								"time": 3157
+							},
+							{
+								"bone_ref": [
+									{
+										"id": 0,
+										"key": 0,
+										"timeline": 5
+									}
+								],
+								"id": 5,
+								"object_ref": [
+									{
+										"id": 0,
+										"key": 3,
+										"timeline": "1",
+										"z_index": "0"
+									},
+									{
+										"id": 1,
+										"key": 3,
+										"timeline": "2",
+										"z_index": "1"
+									},
+									{
+										"id": 2,
+										"key": 5,
+										"timeline": "3",
+										"z_index": "2"
+									},
+									{
+										"id": 3,
+										"key": 5,
+										"timeline": "4",
+										"z_index": "3"
+									},
+									{
+										"id": 4,
+										"key": 3,
+										"timeline": "0",
+										"z_index": "4"
+									}
+								],
+								"time": 4070
+							},
+							{
+								"bone_ref": [
+									{
+										"id": 0,
+										"key": 0,
+										"timeline": 5
+									}
+								],
+								"id": 6,
+								"object_ref": [
+									{
+										"id": 0,
+										"key": 4,
+										"timeline": "1",
+										"z_index": "0"
+									},
+									{
+										"id": 1,
+										"key": 4,
+										"timeline": "2",
+										"z_index": "1"
+									},
+									{
+										"id": 2,
+										"key": 6,
+										"timeline": "3",
+										"z_index": "2"
+									},
+									{
+										"id": 3,
+										"key": 6,
+										"timeline": "4",
+										"z_index": "3"
+									},
+									{
+										"id": 4,
+										"key": 4,
+										"timeline": "0",
+										"z_index": "4"
+									}
+								],
+								"time": 4151
+							}
+						]
+					},
+					"name": "Looking",
+					"r": 196,
+					"t": -72,
+					"timeline": [
+						{
+							"id": 0,
+							"key": [
+								{
+									"id": 0,
+									"object": {
+										"angle": 0,
+										"file": 0,
+										"folder": 0,
+										"x": -260,
+										"y": 138
+									},
+									"spin": 0
+								},
+								{
+									"id": 1,
+									"object": {
+										"angle": 0,
+										"file": 0,
+										"folder": 0,
+										"x": -260,
+										"y": 138
+									},
+									"spin": 0,
+									"time": 2005
+								},
+								{
+									"id": 2,
+									"object": {
+										"angle": 0,
+										"file": 0,
+										"folder": 0,
+										"x": -260,
+										"y": 138
+									},
+									"spin": 0,
+									"time": 3045
+								},
+								{
+									"id": 3,
+									"object": {
+										"angle": 0,
+										"file": 0,
+										"folder": 0,
+										"x": -260,
+										"y": 138
+									},
+									"spin": 0,
+									"time": 4070
+								},
+								{
+									"id": 4,
+									"object": {
+										"angle": 0,
+										"file": 0,
+										"folder": 0,
+										"x": -260,
+										"y": 138
+									},
+									"spin": 0,
+									"time": 4151
+								}
+							],
+							"name": "maC_eye_standard",
+							"obj": 0
+						},
+						{
+							"id": 1,
+							"key": [
+								{
+									"id": 0,
+									"object": {
+										"angle": 0,
+										"file": 1,
+										"folder": 0,
+										"scale_x": 1.3497737625848207,
+										"scale_y": 0.7264228846100425,
+										"x": -171,
+										"y": 41.99999999999999
+									},
+									"spin": 0
+								},
+								{
+									"id": 1,
+									"object": {
+										"angle": 0,
+										"file": 1,
+										"folder": 0,
+										"scale_x": 1.3497737625848207,
+										"scale_y": 0.7264228846100425,
+										"x": -171,
+										"y": 41.99999999999999
+									},
+									"spin": 0,
+									"time": 2005
+								},
+								{
+									"id": 2,
+									"object": {
+										"angle": 0,
+										"file": 1,
+										"folder": 0,
+										"scale_x": 1.3497737625848207,
+										"scale_y": 0.7264228846100425,
+										"x": -171,
+										"y": 41.99999999999999
+									},
+									"spin": 0,
+									"time": 3045
+								},
+								{
+									"id": 3,
+									"object": {
+										"angle": 0,
+										"file": 1,
+										"folder": 0,
+										"scale_x": 1.3497737625848207,
+										"scale_y": 0.7264228846100425,
+										"x": -171,
+										"y": 41.99999999999999
+									},
+									"spin": 0,
+									"time": 4070
+								},
+								{
+									"id": 4,
+									"object": {
+										"angle": 0,
+										"file": 1,
+										"folder": 0,
+										"scale_x": 1.3497737625848207,
+										"scale_y": 0.7264228846100425,
+										"x": -171,
+										"y": 41.99999999999999
+									},
+									"spin": 0,
+									"time": 4151
+								}
+							],
+							"name": "maC_white_000",
+							"obj": 1
+						},
+						{
+							"id": 2,
+							"key": [
+								{
+									"id": 0,
+									"object": {
+										"angle": 0,
+										"file": 1,
+										"folder": 0,
+										"scale_x": 1.3497737625848207,
+										"scale_y": 0.7264228846100425,
+										"x": 47,
+										"y": 30.999999999999993
+									},
+									"spin": 0
+								},
+								{
+									"id": 1,
+									"object": {
+										"angle": 0,
+										"file": 1,
+										"folder": 0,
+										"scale_x": 1.3497737625848207,
+										"scale_y": 0.7264228846100425,
+										"x": 47,
+										"y": 30.999999999999993
+									},
+									"spin": 0,
+									"time": 2005
+								},
+								{
+									"id": 2,
+									"object": {
+										"angle": 0,
+										"file": 1,
+										"folder": 0,
+										"scale_x": 1.3497737625848207,
+										"scale_y": 0.7264228846100425,
+										"x": 47,
+										"y": 30.999999999999993
+									},
+									"spin": 0,
+									"time": 3045
+								},
+								{
+									"id": 3,
+									"object": {
+										"angle": 0,
+										"file": 1,
+										"folder": 0,
+										"scale_x": 1.3497737625848207,
+										"scale_y": 0.7264228846100425,
+										"x": 47,
+										"y": 30.999999999999993
+									},
+									"spin": 0,
+									"time": 4070
+								},
+								{
+									"id": 4,
+									"object": {
+										"angle": 0,
+										"file": 1,
+										"folder": 0,
+										"scale_x": 1.3497737625848207,
+										"scale_y": 0.7264228846100425,
+										"x": 47,
+										"y": 30.999999999999993
+									},
+									"spin": 0,
+									"time": 4151
+								}
+							],
+							"name": "maC_white_001",
+							"obj": 2
+						},
+						{
+							"id": 3,
+							"key": [
+								{
+									"id": 0,
+									"object": {
+										"angle": 0,
+										"file": 2,
+										"folder": 0,
+										"x": 77,
+										"y": 26
+									},
+									"spin": 0
+								},
+								{
+									"id": 1,
+									"object": {
+										"angle": 0,
+										"file": 2,
+										"folder": 0,
+										"x": 77,
+										"y": 26
+									},
+									"spin": 0,
+									"time": 2005
+								},
+								{
+									"id": 2,
+									"object": {
+										"angle": 0,
+										"file": 2,
+										"folder": 0,
+										"x": 83.9565217391305,
+										"y": 28.608695652173964
+									},
+									"spin": 0,
+									"time": 2088
+								},
+								{
+									"id": 3,
+									"object": {
+										"angle": 0,
+										"file": 2,
+										"folder": 0,
+										"x": 83.9565217391305,
+										"y": 28.608695652173964
+									},
+									"spin": 0,
+									"time": 3045
+								},
+								{
+									"id": 4,
+									"object": {
+										"angle": 0,
+										"file": 2,
+										"folder": 0,
+										"x": 70.06951314761778,
+										"y": 24.161936995574127
+									},
+									"spin": 0,
+									"time": 3157
+								},
+								{
+									"id": 5,
+									"object": {
+										"angle": 0,
+										"file": 2,
+										"folder": 0,
+										"x": 70.06951314761778,
+										"y": 24.161936995574127
+									},
+									"spin": 0,
+									"time": 4070
+								},
+								{
+									"id": 6,
+									"object": {
+										"angle": 0,
+										"file": 2,
+										"folder": 0,
+										"x": 77,
+										"y": 26
+									},
+									"spin": 0,
+									"time": 4151
+								}
+							],
+							"name": "maC_eyeball",
+							"obj": 3
+						},
+						{
+							"id": 4,
+							"key": [
+								{
+									"id": 0,
+									"object": {
+										"angle": 0,
+										"file": 2,
+										"folder": 0,
+										"x": -144,
+										"y": 38
+									},
+									"spin": 0
+								},
+								{
+									"id": 1,
+									"object": {
+										"angle": 0,
+										"file": 2,
+										"folder": 0,
+										"x": -144,
+										"y": 38
+									},
+									"spin": 0,
+									"time": 2005
+								},
+								{
+									"id": 2,
+									"object": {
+										"angle": 0,
+										"file": 2,
+										"folder": 0,
+										"x": -136.09846269923608,
+										"y": 40.608695652173914
+									},
+									"spin": 0,
+									"time": 2088
+								},
+								{
+									"id": 3,
+									"object": {
+										"angle": 0,
+										"file": 2,
+										"folder": 0,
+										"x": -136.09846269923608,
+										"y": 40.608695652173914
+									},
+									"spin": 0,
+									"time": 3045
+								},
+								{
+									"id": 4,
+									"object": {
+										"angle": 0,
+										"file": 2,
+										"folder": 0,
+										"x": -150.33631539147495,
+										"y": 36.16193699557408
+									},
+									"spin": 0,
+									"time": 3157
+								},
+								{
+									"id": 5,
+									"object": {
+										"angle": 0,
+										"file": 2,
+										"folder": 0,
+										"x": -150.33631539147495,
+										"y": 36.16193699557408
+									},
+									"spin": 0,
+									"time": 4070
+								},
+								{
+									"id": 6,
+									"object": {
+										"angle": 0,
+										"file": 2,
+										"folder": 0,
+										"x": -144,
+										"y": 38
+									},
+									"spin": 0,
+									"time": 4151
+								}
+							],
+							"name": "maC_eyeball_000",
+							"obj": 4
+						},
+						{
+							"id": 5,
+							"key": [
+								{
+									"bone": {
+										"angle": 90,
+										"scale_y": 6.935483870967749,
+										"x": 1.612903225806451,
+										"y": 4.032258064516128
+									},
+									"id": 0,
+									"spin": 0
+								}
+							],
+							"name": "bone_000",
+							"obj": 5,
+							"object_type": "bone"
+						}
+					]
+				},
+				{
+					"b": 54,
+					"id": 2,
+					"interval": 100,
+					"l": -237,
+					"length": 500,
+					"mainline": {
+						"key": [
+							{
+								"bone_ref": [
+									{
+										"id": 0,
+										"key": 0,
+										"timeline": 5
+									}
+								],
+								"id": 0,
+								"object_ref": [
+									{
+										"abs_a": 1,
+										"abs_angle": 0,
+										"abs_pivot_x": 0,
+										"abs_pivot_y": 1,
+										"abs_scale_x": 1.349773762584821,
+										"abs_scale_y": 0.5385722980974608,
+										"abs_x": -171,
+										"abs_y": -41.99999999999999,
+										"file": 1,
+										"folder": 0,
+										"id": 0,
+										"key": 0,
+										"name": "maC_white_000",
+										"timeline": "1",
+										"z_index": "0"
+									},
+									{
+										"abs_a": 1,
+										"abs_angle": 0,
+										"abs_pivot_x": 0,
+										"abs_pivot_y": 1,
+										"abs_scale_x": 1.3497737625848207,
+										"abs_scale_y": 0.5214838926993066,
+										"abs_x": 47,
+										"abs_y": -30.999999999999993,
+										"file": 1,
+										"folder": 0,
+										"id": 1,
+										"key": 0,
+										"name": "maC_white_001",
+										"timeline": "2",
+										"z_index": "1"
+									},
+									{
+										"abs_a": 1,
+										"abs_angle": 0,
+										"abs_pivot_x": 0,
+										"abs_pivot_y": 1,
+										"abs_scale_x": 1,
+										"abs_scale_y": 1,
+										"abs_x": 77,
+										"abs_y": -26,
+										"file": 2,
+										"folder": 0,
+										"id": 2,
+										"key": 0,
+										"name": "maC_eyeball",
+										"timeline": "3",
+										"z_index": "2"
+									},
+									{
+										"abs_a": 1,
+										"abs_angle": 0,
+										"abs_pivot_x": 0,
+										"abs_pivot_y": 1,
+										"abs_scale_x": 1,
+										"abs_scale_y": 1,
+										"abs_x": -144,
+										"abs_y": -38,
+										"file": 2,
+										"folder": 0,
+										"id": 3,
+										"key": 0,
+										"name": "maC_eyeball_000",
+										"timeline": "4",
+										"z_index": "3"
+									},
+									{
+										"abs_a": 1,
+										"abs_angle": 0,
+										"abs_pivot_x": 0,
+										"abs_pivot_y": 1,
+										"abs_scale_x": 1,
+										"abs_scale_y": 1,
+										"abs_x": -260,
+										"abs_y": -138,
+										"file": 4,
+										"folder": 0,
+										"id": 4,
+										"key": 0,
+										"name": "maC_eye_standard",
+										"timeline": "0",
+										"z_index": "4"
+									}
+								]
+							}
+						]
+					},
+					"name": "Closed",
+					"r": 196,
+					"t": -90,
+					"timeline": [
+						{
+							"id": 0,
+							"key": [
+								{
+									"id": 0,
+									"object": {
+										"angle": 0,
+										"file": 4,
+										"folder": 0,
+										"x": -260,
+										"y": 138
+									},
+									"spin": 0
+								}
+							],
+							"name": "maC_eye_standard",
+							"obj": 0
+						},
+						{
+							"id": 1,
+							"key": [
+								{
+									"id": 0,
+									"object": {
+										"angle": 0,
+										"file": 1,
+										"folder": 0,
+										"scale_x": 1.349773762584821,
+										"scale_y": 0.5385722980974608,
+										"x": -171,
+										"y": 41.99999999999999
+									},
+									"spin": 0
+								}
+							],
+							"name": "maC_white_000",
+							"obj": 1
+						},
+						{
+							"id": 2,
+							"key": [
+								{
+									"id": 0,
+									"object": {
+										"angle": 0,
+										"file": 1,
+										"folder": 0,
+										"scale_x": 1.3497737625848207,
+										"scale_y": 0.5214838926993066,
+										"x": 47,
+										"y": 30.999999999999993
+									},
+									"spin": 0
+								}
+							],
+							"name": "maC_white_001",
+							"obj": 2
+						},
+						{
+							"id": 3,
+							"key": [
+								{
+									"id": 0,
+									"object": {
+										"angle": 0,
+										"file": 2,
+										"folder": 0,
+										"x": 77,
+										"y": 26
+									},
+									"spin": 0
+								}
+							],
+							"name": "maC_eyeball",
+							"obj": 3
+						},
+						{
+							"id": 4,
+							"key": [
+								{
+									"id": 0,
+									"object": {
+										"angle": 0,
+										"file": 2,
+										"folder": 0,
+										"x": -144,
+										"y": 38
+									},
+									"spin": 0
+								}
+							],
+							"name": "maC_eyeball_000",
+							"obj": 4
+						},
+						{
+							"id": 5,
+							"key": [
+								{
+									"bone": {
+										"angle": 90,
+										"scale_y": 6.935483870967749,
+										"x": 1.612903225806451,
+										"y": 4.032258064516128
+									},
+									"id": 0,
+									"spin": 0
+								}
+							],
+							"name": "bone_000",
+							"obj": 5,
+							"object_type": "bone"
+						}
+					]
+				}
+			],
+			"character_map": [],
+			"id": 0,
+			"name": "entity_000",
+			"obj_info": [
+				{
+					"frames": [
+						{
+							"file": 0,
+							"folder": 0
+						},
+						{
+							"file": 4,
+							"folder": 0
+						}
+					],
+					"name": "entity_000_maC_eye_standard",
+					"realname": "maC_eye_standard",
+					"type": "sprite"
+				},
+				{
+					"frames": [
+						{
+							"file": 1,
+							"folder": 0
+						}
+					],
+					"name": "entity_000_maC_white_000",
+					"realname": "maC_white_000",
+					"type": "sprite"
+				},
+				{
+					"frames": [
+						{
+							"file": 1,
+							"folder": 0
+						}
+					],
+					"name": "entity_000_maC_white_001",
+					"realname": "maC_white_001",
+					"type": "sprite"
+				},
+				{
+					"frames": [
+						{
+							"file": 2,
+							"folder": 0
+						}
+					],
+					"name": "entity_000_maC_eyeball",
+					"realname": "maC_eyeball",
+					"type": "sprite"
+				},
+				{
+					"frames": [
+						{
+							"file": 2,
+							"folder": 0
+						}
+					],
+					"name": "entity_000_maC_eyeball_000",
+					"realname": "maC_eyeball_000",
+					"type": "sprite"
+				},
+				{
+					"h": 10,
+					"name": "entity_000_bone_000",
+					"realname": "bone_000",
+					"type": "bone",
+					"w": 116.93548387096774
+				}
+			]
+		}
+	],
+	"folder": [
+		{
+			"file": [
+				{
+					"height": 256,
+					"id": 0,
+					"name": "maC_eye_standard.png",
+					"pivot_x": 0,
+					"pivot_y": 1,
+					"width": 512
+				},
+				{
+					"height": 100,
+					"id": 1,
+					"name": "maC_white.png",
+					"pivot_x": 0,
+					"pivot_y": 1,
+					"width": 87
+				},
+				{
+					"height": 67,
+					"id": 2,
+					"name": "maC_eyeball.png",
+					"pivot_x": 0,
+					"pivot_y": 1,
+					"width": 66
+				},
+				{
+					"height": 256,
+					"id": 3,
+					"name": "maC_eye_wide.png",
+					"pivot_x": 0,
+					"pivot_y": 1,
+					"width": 512
+				},
+				{
+					"height": 256,
+					"id": 4,
+					"name": "maC_eye_standard_blink.png",
+					"pivot_x": 0,
+					"pivot_y": 1,
+					"width": 512
+				}
+			],
+			"id": 0
+		}
+	],
+	"generator": "BrashMonkey Spriter",
+	"generator_version": "r11",
+	"scon_version": "1.0"
+}
