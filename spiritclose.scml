@@ -218,7 +218,7 @@
                 </key>
             </timeline>
         </animation>
-        <animation id="1" name="000" length="1000" interval="100">
+        <animation id="1" name="Talking" length="1000" interval="100">
             <mainline>
                 <key id="0">
                     <bone_ref id="0" timeline="13" key="0"/>
@@ -636,7 +636,7 @@
                 </key>
             </timeline>
         </animation>
-        <animation id="3" name="Talking" length="10000" interval="100">
+        <animation id="3" name="Idle_000" length="10000" interval="100">
             <mainline>
                 <key id="0">
                     <bone_ref id="0" timeline="13" key="0"/>
@@ -1054,7 +1054,7 @@
                     <bone x="252.742374" y="-0.936416" angle="356.672596" scale_y="0.784506"/>
                 </key>
                 <key id="1" time="1089">
-                    <bone x="252.742374" y="-0.936416" angle="359.600629" scale_y="0.784506"/>
+                    <bone x="252.742374" y="-0.936416" angle="6.122839" scale_y="0.784506"/>
                 </key>
                 <key id="2" time="1887" spin="-1">
                     <bone x="248.407991" y="-1.147765" angle="7.372251" scale_y="0.784506"/>
@@ -1076,11 +1076,11 @@
                 </key>
             </timeline>
             <timeline id="16" obj="16" name="bone_003" object_type="bone">
-                <key id="0">
+                <key id="0" spin="-1">
                     <bone x="225.490196" y="1.521739" angle="344.341655" scale_y="0.580397"/>
                 </key>
                 <key id="1" time="1089" spin="-1">
-                    <bone x="225.490196" y="1.521739" angle="344.440427" scale_y="0.580397"/>
+                    <bone x="225.490196" y="1.521739" angle="340.486878" scale_y="0.580397"/>
                 </key>
                 <key id="2" time="1887">
                     <bone x="225.490196" y="1.521739" angle="338.396361" scale_y="0.580397"/>
@@ -1158,7 +1158,7 @@
                     <bone x="84.647476" y="20.305273" angle="183.613881" scale_y="2.878922"/>
                 </key>
                 <key id="1" time="1089" spin="-1">
-                    <bone x="84.647476" y="20.305273" angle="179.496209" scale_y="2.878922"/>
+                    <bone x="84.647476" y="20.305273" angle="176.708707" scale_y="2.878922"/>
                 </key>
                 <key id="2" time="1887">
                     <bone x="84.647476" y="20.305273" angle="175.367574" scale_y="2.878922"/>
