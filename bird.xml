@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MyGame> 
+
+	<dialog id='10' type="normal"> 
+		<line id='1' portrait='OldOne' mood='neutral' pos='right'>Majestic spirit, it is an honor to …</line> 
+		<line id='2' portrait='BirdSpirit' mood='neutral' pos='left'>Billowing, smoke, darkening, sky, gathering, fly.</line>
+		<nextdialog>20</nextdialog>
+	</dialog>
+	
+	<dialog id='20' type='question3'>
+		<question id='1' portrait='OldOne' mood='question' pos='right'>Billowing, smoke, darkening, sky, gathering, fly.</question>
+		<answer id='1'>[ Try interpreting ]</answer>
+		<nextdialog id='1'>21</nextdialog>
+		<answer id='2'>[ Something wrong? ]</answer>
+		<nextdialog id='2'>22</nextdialog>		
+		<answer id='3'>[ You interrupted!? ] </answer>
+		<nextdialog id='3'>23</nextdialog>
+	</dialog>
+	
+		<dialog id='21' type="normal">
+			<line id='1' portrait='OldOne' mood='neutral' pos='right'>You seem to speak of dark omens. The volcano?</line> 
+			<nextdialog>30</nextdialog>
+		</dialog>
+		
+		<dialog id='22' type="normal">
+			<line id='1' portrait='OldOne' mood='neutral' pos='right'>Dear bird you seem distressed, whatever’s wrong? </line> 
+			<nextdialog>30</nextdialog>
+		</dialog>
+		
+		<dialog id='23' type="normal">
+			<line id='1' portrait='OldOne' mood='neutral' pos='right'>Look I’m very sorry my feathered friend, but I really don’t have time for the wordplay.</line> 
+			<nextdialog>30</nextdialog>
+		</dialog>
+	
+	
+	<dialog id='30' type="normal">
+		<line id='1' portrait='BirdSpirit' mood='neutral' pos='left'>Billowing smoke is darkening the sky, A darkening earth brings the cold,</line> 
+		<line id='2' portrait='BirdSpirit' mood='neutral' pos='left'>The migrating flocks are gathering now, But soon my precious flocks must fly!</line> 
+		<line id='3' portrait='OldOne' mood='neutral' pos='right'>Of course - the Volcano threatens your flock. But then why the worry? What holds back the migration?</line> 
+		<line id='4' portrait='BirdSpirit' mood='neutral' pos='left'>The flock when migrating, it is a following, We need a following, swift, bright and quick</line> 
+		<line id='5' portrait='BirdSpirit' mood='neutral' pos='left'>We need a gathering, a unity, a following, Alas conflict weights us from flight</line> 
+		<nextdialog>40</nextdialog>
+	</dialog>
+	
+	<dialog id='40' type='question3'>
+		<question id='1' portrait='OldOne' mood='question' pos='right'>We need a gathering, a unity, a following, Alas conflict weights us from flight</question>
+		<answer id='1'>[ Offer Help ]</answer>
+		<nextdialog id='1'>41</nextdialog>
+		<answer id='2'>[ Offer a trade ]</answer>
+		<nextdialog id='2'>42</nextdialog>		
+		<answer id='3'>[ What about the volcano!? ]</answer>
+		<nextdialog id='3'>43</nextdialog>
+	</dialog>
+	
+		<dialog id='41' type="normal">
+			<line id='1' portrait='OldOne' mood='neutral' pos='right'>Please let me help you with this conflict</line> 
+			<line id='2' portrait='BirdSpirit' mood='neutral' pos='left'>The old one acts kindly, swiftly, brightly, We accept this generosity, humbly yes. </line> 
+			<line id='3' portrait='BirdSpirit' mood='neutral' pos='left'>Once this problem finds resolution, Answers to your own I promise you will find.</line> 
+			<line id='4' portrait='OldOne' mood='neutral' pos='right'>Thank you, I hope I can help.</line> 
+			<line id='5' portrait='BirdSpirit' mood='neutral' pos='left'>The Old One has questions?</line> 
+			<nextdialog>50</nextdialog>
+		</dialog>
+		
+		<dialog id='42' type="normal">
+			<line id='1' portrait='OldOne' mood='neutral' pos='right'>Maybe we could make a trade?</line> 
+			<line id='2' portrait='BirdSpirit' mood='neutral' pos='left'>The old one weighs purpose against need, Their need a folly, our purpose life’s cycle.</line> 
+			<line id='3' portrait='BirdSpirit' mood='neutral' pos='left'>Accepted is the trade, briskly, coldly and vexed, Help this bird, and a path you will find.</line> 
+			<line id='4' portrait='OldOne' mood='neutral' pos='right'>Thank you, I’ll do my best to help your flock</line> 
+			<line id='5' portrait='BirdSpirit' mood='neutral' pos='left'>The Old One has questions?</line> 
+			<nextdialog>50</nextdialog>
+		</dialog>
+		
+		<dialog id='43' type="normal">
+			<line id='1' portrait='OldOne' mood='neutral' pos='right'>Forget the little picture, help me stop the volcano!</line> 
+			<line id='2' portrait='BirdSpirit' mood='neutral' pos='left'>The old one speaks to a folly, a hubris, a broken want. As time ebbs and rivers flow, the mountain will meet an end.</line> 
+			<line id='3' portrait='BirdSpirit' mood='neutral' pos='left'>Yet ends bring new dawns, so mourn not for yesterday, Help this bird, and your folly you may find anyway.</line> 
+			<line id='4' portrait='OldOne' mood='neutral' pos='right'>While I’m sorry we disagree oh mighty Kami, I will help you if allows me forward on my path.</line> 
+			<line id='5' portrait='BirdSpirit' mood='neutral' pos='left'>The Old One has questions?</line> 
+			<nextdialog>50</nextdialog>
+		</dialog>
+		
+	<dialog id='50' type='question4'>
+		<question id='1' portrait='OldOne' mood='question' pos='right'>The Old One has questions?</question>
+		<answer id='1'>[What will bring peace?]</answer>
+		<nextdialog id='1'>51</nextdialog>
+		<answer id='2'>[Any clues to this Mediator?]</answer>
+		<nextdialog id='2'>52</nextdialog>		
+		<answer id='3'>[What exactly are you?] </answer>
+		<nextdialog id='3'>53</nextdialog>
+		<answer id='4'>[Farewell] </answer>
+		<nextdialog id='4'>60</nextdialog>
+	</dialog>
+	
+		<dialog id='51' type="normal">
+			<line id='1' portrait='OldOne' mood='neutral' pos='right'>How do you imagine I bring about this peace between your bird tribes?</line> 
+			<line id='2' portrait='BirdSpirit' mood='neutral' pos='left'>The flocks need one who can speak for the following, Speak to that conflict churning, bubbling, </line> 
+			<line id='3' portrait='BirdSpirit' mood='neutral' pos='left'>To distill a distain, a bird who sings fair, To calm two proud kings, a bird who sings true </line> 
+			<line id='4' portrait='BirdSpirit' mood='neutral' pos='left'>We need your help in this unearthing, Find the one urgently, A one to find our way </line> 			
+			<line id='5' portrait='OldOne' mood='neutral' pos='right'>Sounds like ‘bird-peace’ need a mediator. I’m sure there’s some bird out there who will fit the bill. </line> 
+			<nextdialog>50</nextdialog>
+		</dialog>
+		
+		<dialog id='52' type="normal">
+			<line id='1' portrait='OldOne' mood='neutral' pos='right'>You talk of a mediator – any characteristics I should be looking out for? </line> 
+			<line id='2' portrait='BirdSpirit' mood='neutral' pos='left'>Find the bird who nurtures, shelters, fosters, The one who knows the gathering, but also sees its flocks, </line> 
+			<line id='3' portrait='BirdSpirit' mood='neutral' pos='left'>Fierce yet loving, humble yet knowing, Others listen close to a song sung true </line> 			
+			<line id='4' portrait='OldOne' mood='neutral' pos='right'>Nurturing, all-seeing, sings true. Got it! Now I just need to find this ‘bird-saint’! </line> 
+			<nextdialog>50</nextdialog>
+		</dialog>
+		
+		<dialog id='53' type="normal">
+			<line id='1' portrait='OldOne' mood='neutral' pos='right'>Forgive me for asking but, what kind of being are you?</line> 
+			<line id='2' portrait='BirdSpirit' mood='neutral' pos='left'>My essence is patterning, gathering, returning, All in flight wheeling, banking, turning </line> 
+			<line id='3' portrait='BirdSpirit' mood='neutral' pos='left'>Follow from within new patterns underwing, </line> 
+			<line id='4' portrait='BirdSpirit' mood='neutral' pos='left'>A Kami I am and these birds my flock </line> 
+			<nextdialog>50</nextdialog>
+		</dialog>
+		
+	<dialog id='60' type="normal">
+		<line id='1' portrait='OldOne' mood='neutral' pos='right'>My Thanks kind spirit, I’ll be off now.</line> 
+		<line id='2' portrait='BirdSpirit' mood='neutral' pos='left'>A chance, a change, a feeling underwing, fly my dear, fly!  </line> 
+		<nextdialog>999</nextdialog>
+	</dialog>
+	
+	<dialog id='70' type="normal">
+		<line id='1' portrait='OldOne' mood='neutral' pos='right'>It's me again </line> 
+		<line id='2' portrait='BirdSpirit' mood='neutral' pos='left'>The Old One has questions?  </line> 
+		<nextdialog>50</nextdialog>
+	</dialog>
+	
+	<dialog id='999' type="end">
+	</dialog>
+</MyGame>
+
