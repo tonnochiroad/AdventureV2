@@ -5547,6 +5547,10 @@ quat4.str=function(a){return"["+a[0]+", "+a[1]+", "+a[2]+", "+a[3]+"]"};
 			
 			// Mark GPU usage unavailable since measurements require WebGL
 			this.gpuLastUtilisation = NaN;
+			
+			// Low quality fullscreen mode only supported with WebGL
+			this.wantFullscreenScalingQuality = true;
+			this.fullscreenScalingQuality = true;
 		}
 		
 		this.tickFunc = function (timestamp) { self.tick(false, timestamp); };
@@ -5655,8 +5659,6 @@ quat4.str=function(a){return"["+a[0]+", "+a[1]+", "+a[2]+", "+a[3]+"]"};
 		cr.seal(this);
 	};
 	
-	var webkitRepaintFlag = false;
-	
 	Runtime.prototype["setSize"] = function (w, h, force)
 	{
 		var offx = 0, offy = 0;
@@ -5699,7 +5701,7 @@ quat4.str=function(a){return"["+a[0]+", "+a[1]+", "+a[2]+", "+a[3]+"]"};
 		if (!isfullscreen && this.fullscreen_mode === 0 && !force)
 			return;			// ignore size events when not fullscreen and not using a fullscreen-in-browser mode
 		
-		if (isfullscreen && this.fullscreen_scaling > 0)
+		if (isfullscreen)
 			mode = this.fullscreen_scaling;
 		
 		var dpr = this.devicePixelRatio;
@@ -5762,8 +5764,8 @@ quat4.str=function(a){return"["+a[0]+", "+a[1]+", "+a[2]+", "+a[3]+"]"};
 				}
 			}
 		}
-		// Centered mode in NW.js: keep canvas size the same and just center it
-		else if (this.isNWjs && this.isNodeFullscreen && this.fullscreen_mode_set === 0)
+		// Centered mode in fullscreen: keep canvas size the same and just center it
+		else if (isfullscreen && mode === 0)
 		{
 			offx = Math.floor((w - this.original_width) / 2);
 			offy = Math.floor((h - this.original_height) / 2);
@@ -15943,7 +15945,13 @@ window["cr_setSuspended"] = function(s)
 				// objectname parameters could refer to anything, which could cause any SOL modification. Unfortunately
 				// this means we have to deoptimise and set the entire project's object types as the SOL modifiers.
 				if (this.type === 14)
+				{
 					this.block.setAllSolModifiers();
+					
+					// For actions, also set the owner block as a SOL writer after conditions, as done with normal object parameters
+					if (this.owner instanceof cr.action)
+						this.block.setSolWriterAfterCnds();
+				}
 				
 				break;
 			case 5:		// layer
@@ -19446,7 +19454,7 @@ cr.system_object.prototype.loadFromJSON = function (o)
 	// System expressions
     function SysExps() {};
 
-    SysExps.prototype["int"] = function(ret, x)
+    SysExps.prototype.int = function(ret, x)
     {
         if (cr.is_string(x))
         {
@@ -19460,7 +19468,7 @@ cr.system_object.prototype.loadFromJSON = function (o)
             ret.set_int(x);
     };
 
-    SysExps.prototype["float"] = function(ret, x)
+    SysExps.prototype.float = function(ret, x)
     {
         if (cr.is_string(x))
         {
@@ -21564,16 +21572,15 @@ cr.system_object.prototype.loadFromJSON = function (o)
 		if (prevsol.select_all)
 		{
 			clonesol.select_all = true;
-			
-			// Make sure any leftover else_instances are cleared; not always reset by next event
-			cr.clearArray(clonesol.else_instances);
 		}
 		else
 		{
 			clonesol.select_all = false;
 			cr.shallowAssignArray(clonesol.instances, prevsol.instances);
-			//cr.shallowAssignArray(clonesol.else_instances, prevsol.else_instances);
 		}
+		
+		// Make sure any leftover else_instances are cleared; not always reset by next event
+		cr.clearArray(clonesol.else_instances);
 	};
 
 	cr.type_popSol = function ()
@@ -21725,15 +21732,27 @@ cr.shaders["water"] = {
 	extendBoxHorizontal: 40,
 	extendBoxVertical: 40,
 	crossSampling: false,
+	mustPreDraw: false,
 	preservesOpaqueness: false,
 	animated: true,
 	parameters: [["speed",0,1],["speed_x",0,1],["speed_y",0,1],["intensity",0,0],["frequency",0,0],["angle",0,0],["delta",0,0],["intence",0,0],["emboss",0,1]]
+};
+cr.shaders["brightness"] = {
+	src: "varying mediump vec2 vTex;\nuniform lowp sampler2D samplerFront;\nuniform lowp float brightness;\nvoid main(void)\n{\nlowp vec4 front = texture2D(samplerFront, vTex);\nlowp float a = front.a;\nif (a != 0.0)\nfront.rgb /= front.a;\nfront.rgb += (brightness - 1.0);\nfront.rgb *= a;\ngl_FragColor = front;\n}",
+	extendBoxHorizontal: 0,
+	extendBoxVertical: 0,
+	crossSampling: false,
+	mustPreDraw: false,
+	preservesOpaqueness: true,
+	animated: false,
+	parameters: [["brightness",0,1]]
 };
 cr.shaders["softlight"] = {
 	src: "precision mediump float;\nvarying mediump vec2 vTex;\nuniform lowp sampler2D samplerFront;\nuniform mediump vec2 srcStart;\nuniform mediump vec2 srcEnd;\nuniform lowp sampler2D samplerBack;\nuniform mediump vec2 destStart;\nuniform mediump vec2 destEnd;\nvoid main(void)\n{\nlowp vec4 front = texture2D(samplerFront, vTex);\nfront.rgb /= front.a;\nmediump vec2 tex = (vTex - srcStart) / (srcEnd - srcStart);\nlowp vec4 back = texture2D(samplerBack, mix(destStart, destEnd, tex));\nback.rgb /= back.a;\nfront.r = ((front.r < 0.5) ? (2.0 * back.r * front.r + back.r * back.r * (1.0 - 2.0 * front.r)) : (sqrt(back.r) * (2.0 * front.r - 1.0) + 2.0 * back.r * (1.0 - front.r)));\nfront.g = ((front.g < 0.5) ? (2.0 * back.g * front.g + back.g * back.g * (1.0 - 2.0 * front.g)) : (sqrt(back.g) * (2.0 * front.g - 1.0) + 2.0 * back.g * (1.0 - front.g)));\nfront.b = ((front.b < 0.5) ? (2.0 * back.b * front.b + back.b * back.b * (1.0 - 2.0 * front.b)) : (sqrt(back.b) * (2.0 * front.b - 1.0) + 2.0 * back.b * (1.0 - front.b)));\nfront.rgb *= front.a;\ngl_FragColor = front * back.a;\n}",
 	extendBoxHorizontal: 0,
 	extendBoxVertical: 0,
 	crossSampling: false,
+	mustPreDraw: false,
 	preservesOpaqueness: false,
 	animated: false,
 	parameters: []
@@ -21743,33 +21762,7 @@ cr.shaders["multiply"] = {
 	extendBoxHorizontal: 0,
 	extendBoxVertical: 0,
 	crossSampling: false,
-	preservesOpaqueness: false,
-	animated: false,
-	parameters: []
-};
-cr.shaders["brightness"] = {
-	src: "varying mediump vec2 vTex;\nuniform lowp sampler2D samplerFront;\nuniform lowp float brightness;\nvoid main(void)\n{\nlowp vec4 front = texture2D(samplerFront, vTex);\nlowp float a = front.a;\nif (a != 0.0)\nfront.rgb /= front.a;\nfront.rgb += (brightness - 1.0);\nfront.rgb *= a;\ngl_FragColor = front;\n}",
-	extendBoxHorizontal: 0,
-	extendBoxVertical: 0,
-	crossSampling: false,
-	preservesOpaqueness: true,
-	animated: false,
-	parameters: [["brightness",0,1]]
-};
-cr.shaders["warp"] = {
-	src: "varying mediump vec2 vTex;\nuniform lowp sampler2D samplerFront;\nuniform mediump vec2 srcStart;\nuniform mediump vec2 srcEnd;\nuniform mediump float seconds;\nuniform mediump vec2 pixelSize;\nuniform mediump float layerScale;\nuniform mediump float freqX;\nuniform mediump float freqY;\nuniform mediump float ampX;\nuniform mediump float ampY;\nuniform mediump float speedX;\nuniform mediump float speedY;\nvoid main(void)\n{\nmediump vec2 srcSize = srcEnd - srcStart;\nmediump vec2 tex = ((vTex - srcStart) / srcSize);\nmediump float aspect = pixelSize.y / pixelSize.x;\nmediump vec2 p = vTex;\np.x += (cos(tex.y * freqX / (pixelSize.x * 750.0) + (seconds * speedX)) * ampX * layerScale * pixelSize.x);\np.y += (sin(tex.x * freqY * aspect / (pixelSize.y * 750.0) + (seconds * speedY)) * ampY * layerScale * pixelSize.y);\np = clamp(p, min(srcStart, srcEnd), max(srcStart, srcEnd));\ngl_FragColor = texture2D(samplerFront, p);\n}",
-	extendBoxHorizontal: 30,
-	extendBoxVertical: 30,
-	crossSampling: false,
-	preservesOpaqueness: false,
-	animated: true,
-	parameters: [["freqX",0,0],["freqY",0,0],["ampX",0,0],["ampY",0,0],["speedX",0,0],["speedY",0,0]]
-};
-cr.shaders["difference"] = {
-	src: "varying mediump vec2 vTex;\nuniform lowp sampler2D samplerFront;\nuniform mediump vec2 srcStart;\nuniform mediump vec2 srcEnd;\nuniform lowp sampler2D samplerBack;\nuniform mediump vec2 destStart;\nuniform mediump vec2 destEnd;\nvoid main(void)\n{\nlowp vec4 front = texture2D(samplerFront, vTex);\nfront.rgb /= front.a;\nmediump vec2 tex = (vTex - srcStart) / (srcEnd - srcStart);\nlowp vec4 back = texture2D(samplerBack, mix(destStart, destEnd, tex));\nback.rgb /= back.a;\nfront.rgb = (max(front.rgb, back.rgb) - min(front.rgb, back.rgb)) * front.a;\ngl_FragColor = front;\n}",
-	extendBoxHorizontal: 0,
-	extendBoxVertical: 0,
-	crossSampling: false,
+	mustPreDraw: false,
 	preservesOpaqueness: false,
 	animated: false,
 	parameters: []
@@ -21779,6 +21772,7 @@ cr.shaders["blurhorizontal"] = {
 	extendBoxHorizontal: 8,
 	extendBoxVertical: 0,
 	crossSampling: false,
+	mustPreDraw: false,
 	preservesOpaqueness: false,
 	animated: false,
 	parameters: [["intensity",0,1]]
@@ -21788,15 +21782,37 @@ cr.shaders["blurvertical"] = {
 	extendBoxHorizontal: 0,
 	extendBoxVertical: 8,
 	crossSampling: false,
+	mustPreDraw: false,
 	preservesOpaqueness: false,
 	animated: false,
 	parameters: [["intensity",0,1]]
+};
+cr.shaders["warp"] = {
+	src: "varying mediump vec2 vTex;\nuniform lowp sampler2D samplerFront;\nuniform mediump vec2 srcStart;\nuniform mediump vec2 srcEnd;\nuniform mediump float seconds;\nuniform mediump vec2 pixelSize;\nuniform mediump float layerScale;\nuniform mediump float freqX;\nuniform mediump float freqY;\nuniform mediump float ampX;\nuniform mediump float ampY;\nuniform mediump float speedX;\nuniform mediump float speedY;\nvoid main(void)\n{\nmediump vec2 srcSize = srcEnd - srcStart;\nmediump vec2 tex = ((vTex - srcStart) / srcSize);\nmediump float aspect = pixelSize.y / pixelSize.x;\nmediump vec2 p = vTex;\np.x += (cos(tex.y * freqX / (pixelSize.x * 750.0) + (seconds * speedX)) * ampX * layerScale * pixelSize.x);\np.y += (sin(tex.x * freqY * aspect / (pixelSize.y * 750.0) + (seconds * speedY)) * ampY * layerScale * pixelSize.y);\np = clamp(p, min(srcStart, srcEnd), max(srcStart, srcEnd));\ngl_FragColor = texture2D(samplerFront, p);\n}",
+	extendBoxHorizontal: 30,
+	extendBoxVertical: 30,
+	crossSampling: false,
+	mustPreDraw: false,
+	preservesOpaqueness: false,
+	animated: true,
+	parameters: [["freqX",0,0],["freqY",0,0],["ampX",0,0],["ampY",0,0],["speedX",0,0],["speedY",0,0]]
+};
+cr.shaders["hsladjustmask"] = {
+	src: "varying mediump vec2 vTex;\nuniform lowp sampler2D samplerFront;\nuniform mediump vec2 srcStart;\nuniform mediump vec2 srcEnd;\nuniform lowp sampler2D samplerBack;\nuniform mediump vec2 destStart;\nuniform mediump vec2 destEnd;\nprecision mediump float;\nuniform float huerotate;\nuniform float satadjust;\nuniform float lumadjust;\nvec3 rgb_to_hsl(vec3 color)\n{\nvec3 hsl = vec3(0.0, 0.0, 0.0);\nfloat fmin = min(min(color.r, color.g), color.b);\nfloat fmax = max(max(color.r, color.g), color.b);\nfloat delta = fmax - fmin;\nhsl.z = (fmax + fmin) / 2.0;\nif (delta == 0.0)\n{\nhsl.x = 0.0;\nhsl.y = 0.0;\n}\nelse\n{\nif (hsl.z < 0.5)\nhsl.y = delta / (fmax + fmin);\nelse\nhsl.y = delta / (2.0 - fmax - fmin);\nfloat dR = (((fmax - color.r) / 6.0) + (delta / 2.0)) / delta;\nfloat dG = (((fmax - color.g) / 6.0) + (delta / 2.0)) / delta;\nfloat dB = (((fmax - color.b) / 6.0) + (delta / 2.0)) / delta;\nif (color.r == fmax)\nhsl.x = dB - dG;\nelse if (color.g == fmax)\nhsl.x = (1.0 / 3.0) + dR - dB;\nelse if (color.b == fmax)\nhsl.x = (2.0 / 3.0) + dG - dR;\nif (hsl.x < 0.0)\nhsl.x += 1.0;\nelse if (hsl.x > 1.0)\nhsl.x -= 1.0;\n}\nreturn hsl;\n}\nfloat hue_to_rgb(float f1, float f2, float hue)\n{\nif (hue < 0.0)\nhue += 1.0;\nelse if (hue > 1.0)\nhue -= 1.0;\nfloat ret;\nif ((6.0 * hue) < 1.0)\nret = f1 + (f2 - f1) * 6.0 * hue;\nelse if ((2.0 * hue) < 1.0)\nret = f2;\nelse if ((3.0 * hue) < 2.0)\nret = f1 + (f2 - f1) * ((2.0 / 3.0) - hue) * 6.0;\nelse\nret = f1;\nreturn ret;\n}\nvec3 hsl_to_rgb(vec3 hsl)\n{\nvec3 rgb = vec3(hsl.z);\nif (hsl.y != 0.0)\n{\nfloat f2;\nif (hsl.z < 0.5)\nf2 = hsl.z * (1.0 + hsl.y);\nelse\nf2 = (hsl.z + hsl.y) - (hsl.y * hsl.z);\nfloat f1 = 2.0 * hsl.z - f2;\nrgb.r = hue_to_rgb(f1, f2, hsl.x + (1.0 / 3.0));\nrgb.g = hue_to_rgb(f1, f2, hsl.x);\nrgb.b = hue_to_rgb(f1, f2, hsl.x - (1.0 / 3.0));\n}\nreturn rgb;\n}\nvoid main(void)\n{\nlowp float fronta = texture2D(samplerFront, vTex).a;\nmediump vec2 tex = (vTex - srcStart) / (srcEnd - srcStart);\nlowp vec4 back = texture2D(samplerBack, mix(destStart, destEnd, tex));\nvec3 rgb = rgb_to_hsl(back.rgb) + vec3(huerotate, 0, (lumadjust - 1.0) * fronta);\nrgb.y *= satadjust;\nrgb = hsl_to_rgb(rgb);\ngl_FragColor = mix(back, vec4(rgb, back.a), fronta);\n}",
+	extendBoxHorizontal: 0,
+	extendBoxVertical: 0,
+	crossSampling: false,
+	mustPreDraw: false,
+	preservesOpaqueness: true,
+	animated: false,
+	parameters: [["huerotate",0,1],["satadjust",0,1],["lumadjust",0,1]]
 };
 cr.shaders["gamma"] = {
 	src: "varying mediump vec2 vTex;\nuniform lowp sampler2D samplerFront;\nuniform mediump float gamma;\nvoid main(void)\n{\nlowp vec4 front = texture2D(samplerFront, vTex);\ngl_FragColor = vec4(pow(front.rgb, vec3(gamma)), front.a);\n}",
 	extendBoxHorizontal: 0,
 	extendBoxVertical: 0,
 	crossSampling: false,
+	mustPreDraw: false,
 	preservesOpaqueness: true,
 	animated: false,
 	parameters: [["gamma",0,0]]
@@ -28738,7 +28754,7 @@ cr.plugins_.Browser = function(runtime)
 	// note wait for DOMContentLoaded since C3_RegisterSW is only assigned after a later script executes.
 	document.addEventListener("DOMContentLoaded", function ()
 	{
-		if (window["C3_RegisterSW"] && navigator.serviceWorker)
+		if (window["C3_RegisterSW"] && navigator["serviceWorker"])
 		{
 			var offlineClientScript = document.createElement("script");
 			offlineClientScript.onload = function ()
@@ -28882,7 +28898,7 @@ cr.plugins_.Browser = function(runtime)
 	
 	instanceProto.onSWMessage = function (e)
 	{
-		var messageType = e.data.type;
+		var messageType = e["data"]["type"];
 		
 		if (messageType === "downloading-update")
 			this.runtime.trigger(cr.plugins_.Browser.prototype.cnds.OnUpdateFound, this);
@@ -32723,9 +32739,7 @@ cr.plugins_.Dictionary = function(runtime)
 					}));
 			a.download = filename;
 			body.appendChild(a);
-			var clickEvent = document.createEvent("MouseEvent");
-			clickEvent.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
-			a.dispatchEvent(clickEvent);
+			a.click();
 			body.removeChild(a);
 		}
 	};
@@ -40248,6 +40262,20 @@ cr.plugins_.Button = function(runtime)
 		return this.isCheckbox && this.inputElem.checked;
 	};
 	
+	Cnds.prototype.CompareText = function(text_to_compare, case_sensitive)
+	{
+		var text;
+		if (this.isCheckbox)
+			text = this.labelText.nodeValue;
+		else
+			text = this.elem.value;
+			
+		if (case_sensitive)
+			return text == text_to_compare;
+		else
+			return cr.equals_nocase(text, text_to_compare);
+	};
+	
 	pluginProto.cnds = new Cnds();
 	
 	//////////////////////////////////////
@@ -40313,6 +40341,937 @@ cr.plugins_.Button = function(runtime)
 	//////////////////////////////////////
 	// Expressions
 	function Exps() {};
+	
+	Exps.prototype.Text = function (ret)
+	{
+		if (this.isCheckbox)
+			ret.set_string(this.labelText.nodeValue);
+		else
+			ret.set_string(this.elem.value);
+	}
+	
+	pluginProto.exps = new Exps();
+
+}());
+
+// Array
+// ECMAScript 5 strict mode
+
+;
+;
+
+/////////////////////////////////////
+// Plugin class
+cr.plugins_.Arr = function(runtime)
+{
+	this.runtime = runtime;
+};
+
+(function ()
+{
+	var pluginProto = cr.plugins_.Arr.prototype;
+		
+	/////////////////////////////////////
+	// Object type class
+	pluginProto.Type = function(plugin)
+	{
+		this.plugin = plugin;
+		this.runtime = plugin.runtime;
+	};
+	
+	var typeProto = pluginProto.Type.prototype;
+
+	typeProto.onCreate = function()
+	{
+	};
+
+	/////////////////////////////////////
+	// Instance class
+	pluginProto.Instance = function(type)
+	{
+		this.type = type;
+		this.runtime = type.runtime;
+	};
+	
+	var instanceProto = pluginProto.Instance.prototype;
+	
+	// For recycling arrays
+	var arrCache = [];
+	
+	function allocArray()
+	{
+		if (arrCache.length)
+			return arrCache.pop();
+		else
+			return [];
+	};
+	
+	// Compatibility shim
+	if (!Array.isArray)
+	{
+		Array.isArray = function (vArg) {
+			return Object.prototype.toString.call(vArg) === "[object Array]";
+		};
+	}
+
+	function freeArray(a)
+	{
+		// Try to recycle any other arrays stored in this array
+		var i, len;
+		for (i = 0, len = a.length; i < len; i++)
+		{
+			if (Array.isArray(a[i]))
+				freeArray(a[i]);
+		}
+		
+		cr.clearArray(a);
+		arrCache.push(a);
+	};
+
+	instanceProto.onCreate = function()
+	{
+		this.cx = this.properties[0];
+		this.cy = this.properties[1];
+		this.cz = this.properties[2];
+		
+		// Recycle array if possible
+		if (!this.recycled)
+			this.arr = allocArray();
+			
+		var a = this.arr;
+		
+		a.length = this.cx;
+		
+		var x, y, z;
+		for (x = 0; x < this.cx; x++)
+		{
+			if (!a[x])
+				a[x] = allocArray();
+			
+			a[x].length = this.cy;
+			
+			for (y = 0; y < this.cy; y++)
+			{
+				if (!a[x][y])
+					a[x][y] = allocArray();
+				
+				a[x][y].length = this.cz;
+				
+				for (z = 0; z < this.cz; z++)
+					a[x][y][z] = 0;
+			}
+		}
+		
+		// Loop indices need to be a stack to support recursive loops
+		this.forX = [];
+		this.forY = [];
+		this.forZ = [];
+		this.forDepth = -1;
+	};
+	
+	instanceProto.onDestroy = function ()
+	{
+		// Recycle as many arrays as possible
+		var x;
+		for (x = 0; x < this.cx; x++)
+			freeArray(this.arr[x]);		// will recurse down and recycle other arrays
+		
+		cr.clearArray(this.arr);
+	};
+	
+	instanceProto.at = function (x, y, z)
+	{
+		x = Math.floor(x);
+		y = Math.floor(y);
+		z = Math.floor(z);
+		
+		if (isNaN(x) || x < 0 || x > this.cx - 1)
+			return 0;
+			
+		if (isNaN(y) || y < 0 || y > this.cy - 1)
+			return 0;
+			
+		if (isNaN(z) || z < 0 || z > this.cz - 1)
+			return 0;
+			
+		return this.arr[x][y][z];
+	};
+	
+	instanceProto.set = function (x, y, z, val)
+	{
+		x = Math.floor(x);
+		y = Math.floor(y);
+		z = Math.floor(z);
+		
+		if (isNaN(x) || x < 0 || x > this.cx - 1)
+			return;
+			
+		if (isNaN(y) || y < 0 || y > this.cy - 1)
+			return;
+			
+		if (isNaN(z) || z < 0 || z > this.cz - 1)
+			return;
+			
+		this.arr[x][y][z] = val;
+	};
+
+	instanceProto.getAsJSON = function ()
+	{
+		return JSON.stringify({
+			"c2array": true,
+			"size": [this.cx, this.cy, this.cz],
+			"data": this.arr
+		});
+	};
+	
+	instanceProto.saveToJSON = function ()
+	{
+		return {
+			"size": [this.cx, this.cy, this.cz],
+			"data": this.arr
+		};
+	};
+	
+	instanceProto.loadFromJSON = function (o)
+	{
+		var sz = o["size"];
+		this.cx = sz[0];
+		this.cy = sz[1];
+		this.cz = sz[2];
+		
+		this.arr = o["data"];
+	};
+	
+	instanceProto.setSize = function (w, h, d)
+	{
+		if (w < 0) w = 0;
+		if (h < 0) h = 0;
+		if (d < 0) d = 0;
+		
+		if (this.cx === w && this.cy === h && this.cz === d)
+			return;		// no change
+		
+		this.cx = w;
+		this.cy = h;
+		this.cz = d;
+		
+		var x, y, z;
+		var a = this.arr;
+		a.length = w;
+		
+		for (x = 0; x < this.cx; x++)
+		{
+			if (cr.is_undefined(a[x]))
+				a[x] = allocArray();
+				
+			a[x].length = h;
+			
+			for (y = 0; y < this.cy; y++)
+			{
+				if (cr.is_undefined(a[x][y]))
+					a[x][y] = allocArray();
+					
+				a[x][y].length = d;
+				
+				for (z = 0; z < this.cz; z++)
+				{
+					if (cr.is_undefined(a[x][y][z]))
+						a[x][y][z] = 0;
+				}
+			}
+		}
+	};
+	
+	
+	instanceProto.getForX = function ()
+	{
+		if (this.forDepth >= 0 && this.forDepth < this.forX.length)
+			return this.forX[this.forDepth];
+		else
+			return 0;
+	};
+	
+	instanceProto.getForY = function ()
+	{
+		if (this.forDepth >= 0 && this.forDepth < this.forY.length)
+			return this.forY[this.forDepth];
+		else
+			return 0;
+	};
+	
+	instanceProto.getForZ = function ()
+	{
+		if (this.forDepth >= 0 && this.forDepth < this.forZ.length)
+			return this.forZ[this.forDepth];
+		else
+			return 0;
+	};
+
+	//////////////////////////////////////
+	// Conditions
+	function Cnds() {};
+
+	Cnds.prototype.CompareX = function (x, cmp, val)
+	{
+		return cr.do_cmp(this.at(x, 0, 0), cmp, val);
+	};
+	
+	Cnds.prototype.CompareXY = function (x, y, cmp, val)
+	{
+		return cr.do_cmp(this.at(x, y, 0), cmp, val);
+	};
+	
+	Cnds.prototype.CompareXYZ = function (x, y, z, cmp, val)
+	{
+		return cr.do_cmp(this.at(x, y, z), cmp, val);
+	};
+	
+	instanceProto.doForEachTrigger = function (current_event)
+	{
+		this.runtime.pushCopySol(current_event.solModifiers);
+		current_event.retrigger();
+		this.runtime.popSol(current_event.solModifiers);
+	};
+	
+	Cnds.prototype.ArrForEach = function (dims)
+	{
+        var current_event = this.runtime.getCurrentEventStack().current_event;
+		
+		// Push the for indices stack
+		this.forDepth++;
+		var forDepth = this.forDepth;
+		
+		if (forDepth === this.forX.length)
+		{
+			this.forX.push(0);
+			this.forY.push(0);
+			this.forZ.push(0);
+		}
+		else
+		{
+			this.forX[forDepth] = 0;
+			this.forY[forDepth] = 0;
+			this.forZ[forDepth] = 0;
+		}
+        
+		// dims: 0 = 3D, 1 = 2D, 2 = 1D
+		switch (dims) {
+		case 0:
+			for (this.forX[forDepth] = 0; this.forX[forDepth] < this.cx; this.forX[forDepth]++)
+			{
+				for (this.forY[forDepth] = 0; this.forY[forDepth] < this.cy; this.forY[forDepth]++)
+				{
+					for (this.forZ[forDepth] = 0; this.forZ[forDepth] < this.cz; this.forZ[forDepth]++)
+					{
+						this.doForEachTrigger(current_event);
+					}
+				}
+			}
+			break;
+		case 1:
+			for (this.forX[forDepth] = 0; this.forX[forDepth] < this.cx; this.forX[forDepth]++)
+			{
+				for (this.forY[forDepth] = 0; this.forY[forDepth] < this.cy; this.forY[forDepth]++)
+				{
+					this.doForEachTrigger(current_event);
+				}
+			}
+			break;
+		case 2:
+			for (this.forX[forDepth] = 0; this.forX[forDepth] < this.cx; this.forX[forDepth]++)
+			{
+				this.doForEachTrigger(current_event);
+			}
+			break;
+		}
+
+		this.forDepth--;
+		return false;
+	};
+	
+	Cnds.prototype.CompareCurrent = function (cmp, val)
+	{
+		return cr.do_cmp(this.at(this.getForX(), this.getForY(), this.getForZ()), cmp, val);
+	};
+	
+	Cnds.prototype.Contains = function(val)
+	{
+		var x, y, z;
+		
+		for (x = 0; x < this.cx; x++)
+		{
+			for (y = 0; y < this.cy; y++)
+			{
+				for (z = 0; z < this.cz; z++)
+				{
+					if (this.arr[x][y][z] === val)
+						return true;
+				}
+			}
+		}
+		
+		return false;
+	};
+	
+	Cnds.prototype.IsEmpty = function ()
+	{
+		return this.cx === 0 || this.cy === 0 || this.cz === 0;
+	};
+	
+	Cnds.prototype.CompareSize = function (axis, cmp, value)
+	{
+		var s = 0;
+		
+		switch (axis) {
+		case 0:
+			s = this.cx;
+			break;
+		case 1:
+			s = this.cy;
+			break;
+		case 2:
+			s = this.cz;
+			break;
+		}
+		
+		return cr.do_cmp(s, cmp, value);
+	};
+	
+	pluginProto.cnds = new Cnds();
+
+	//////////////////////////////////////
+	// Actions
+	function Acts() {};
+
+	Acts.prototype.Clear = function ()
+	{
+		var x, y, z;
+		
+		for (x = 0; x < this.cx; x++)
+			for (y = 0; y < this.cy; y++)
+				for (z = 0; z < this.cz; z++)
+					this.arr[x][y][z] = 0;
+	};
+	
+	Acts.prototype.SetSize = function (w, h, d)
+	{
+		this.setSize(w, h, d);
+	};
+	
+	Acts.prototype.SetX = function (x, val)
+	{
+		this.set(x, 0, 0, val);
+	};
+	
+	Acts.prototype.SetXY = function (x, y, val)
+	{
+		this.set(x, y, 0, val);
+	};
+	
+	Acts.prototype.SetXYZ = function (x, y, z, val)
+	{
+		this.set(x, y, z, val);
+	};
+	
+	Acts.prototype.Push = function (where, value, axis)
+	{
+		var x = 0, y = 0, z = 0;
+		var a = this.arr;
+		
+		switch (axis) {
+		case 0:	// X axis
+		
+			if (where === 0)	// back
+			{
+				x = a.length;
+				a.push(allocArray());
+			}
+			else				// front
+			{
+				x = 0;
+				a.unshift(allocArray());
+			}
+			
+			a[x].length = this.cy;
+			
+			for ( ; y < this.cy; y++)
+			{
+				a[x][y] = allocArray();
+				a[x][y].length = this.cz;
+				
+				for (z = 0; z < this.cz; z++)
+					a[x][y][z] = value;
+			}
+			
+			this.cx++;
+			
+			break;
+		case 1: // Y axis
+			for ( ; x < this.cx; x++)
+			{
+				if (where === 0)	// back
+				{
+					y = a[x].length;
+					a[x].push(allocArray());
+				}
+				else				// front
+				{
+					y = 0;
+					a[x].unshift(allocArray());
+				}
+				
+				a[x][y].length = this.cz;
+				
+				for (z = 0; z < this.cz; z++)
+					a[x][y][z] = value;
+			}
+			
+			this.cy++;
+			
+			break;
+		case 2:	// Z axis
+			for ( ; x < this.cx; x++)
+			{
+				for (y = 0; y < this.cy; y++)
+				{
+					if (where === 0)	// back
+					{
+						a[x][y].push(value);
+					}
+					else				// front
+					{
+						a[x][y].unshift(value);
+					}
+				}
+			}
+			
+			this.cz++;
+			
+			break;
+		}
+	};
+	
+	Acts.prototype.Pop = function (where, axis)
+	{
+		var x = 0, y = 0, z = 0;
+		var a = this.arr;
+		
+		switch (axis) {
+		case 0:	// X axis
+		
+			if (this.cx === 0)
+				break;
+				
+			if (where === 0)	// back
+			{
+				freeArray(a.pop());
+			}
+			else				// front
+			{
+				freeArray(a.shift());
+			}
+			
+			this.cx--;
+			
+			break;
+			
+		case 1: // Y axis
+			if (this.cy === 0)
+				break;
+				
+			for ( ; x < this.cx; x++)
+			{
+				if (where === 0)	// back
+				{
+					freeArray(a[x].pop());
+				}
+				else				// front
+				{
+					freeArray(a[x].shift());
+				}
+			}
+			
+			this.cy--;
+			
+			break;
+			
+		case 2:	// Z axis
+			if (this.cz === 0)
+				break;
+				
+			for ( ; x < this.cx; x++)
+			{
+				for (y = 0; y < this.cy; y++)
+				{
+					if (where === 0)	// back
+					{
+						a[x][y].pop();
+					}
+					else				// front
+					{
+						a[x][y].shift();
+					}
+				}
+			}
+			
+			this.cz--;
+			
+			break;
+		}
+	};
+	
+	Acts.prototype.Reverse = function (axis)
+	{
+		var x = 0, y = 0, z = 0;
+		var a = this.arr;
+		
+		if (this.cx === 0 || this.cy === 0 || this.cz === 0)
+			return;		// no point reversing empty array
+		
+		switch (axis) {
+		case 0:	// X axis
+		
+			a.reverse();
+			break;
+			
+		case 1: // Y axis
+
+			for ( ; x < this.cx; x++)
+				a[x].reverse();
+			
+			break;
+			
+		case 2:	// Z axis
+			
+			for ( ; x < this.cx; x++)
+				for (y = 0; y < this.cy; y++)
+					a[x][y].reverse();
+			
+			break;
+		}
+	};
+	
+	function compareValues(va, vb)
+	{
+		// Both numbers: compare as numbers
+		if (cr.is_number(va) && cr.is_number(vb))
+			return va - vb;
+		// Either is a string: compare as strings
+		else
+		{
+			var sa = "" + va;
+			var sb = "" + vb;
+			
+			if (sa < sb)
+				return -1;
+			else if (sa > sb)
+				return 1;
+			else
+				return 0;
+		}
+	}
+	
+	Acts.prototype.Sort = function (axis)
+	{
+		var x = 0, y = 0, z = 0;
+		var a = this.arr;
+		
+		if (this.cx === 0 || this.cy === 0 || this.cz === 0)
+			return;		// no point sorting empty array
+		
+		switch (axis) {
+		case 0:	// X axis
+			
+			a.sort(function (a, b) {
+				return compareValues(a[0][0], b[0][0]);
+			});
+
+			break;
+			
+		case 1: // Y axis
+
+			for ( ; x < this.cx; x++)
+			{
+				a[x].sort(function (a, b) {
+					return compareValues(a[0], b[0]);
+				});
+			}
+			
+			break;
+			
+		case 2:	// Z axis
+			
+			for ( ; x < this.cx; x++)
+			{
+				for (y = 0; y < this.cy; y++)
+				{
+					a[x][y].sort(compareValues);
+				}
+			}
+			
+			break;
+		}
+	};
+	
+	Acts.prototype.Delete = function (index, axis)
+	{
+		var x = 0, y = 0, z = 0;
+		index = Math.floor(index);
+		var a = this.arr;
+		
+		if (index < 0)
+			return;
+		
+		switch (axis) {
+		case 0:	// X axis
+		
+			if (index >= this.cx)
+				break;
+			
+			freeArray(a[index]);
+			a.splice(index, 1);
+			
+			this.cx--;
+			
+			break;
+			
+		case 1: // Y axis
+		
+			if (index >= this.cy)
+				break;
+				
+			for ( ; x < this.cx; x++)
+			{
+				freeArray(a[x][index]);
+				a[x].splice(index, 1);
+			}
+			
+			this.cy--;
+			
+			break;
+			
+		case 2:	// Z axis
+			if (index >= this.cz)
+				break;
+				
+			for ( ; x < this.cx; x++)
+			{
+				for (y = 0; y < this.cy; y++)
+				{
+					a[x][y].splice(index, 1);
+				}
+			}
+			
+			this.cz--;
+			
+			break;
+		}
+	};
+	
+	Acts.prototype.Insert = function (value, index, axis)
+	{
+		var x = 0, y = 0, z = 0;
+		index = Math.floor(index);
+		var a = this.arr;
+		
+		if (index < 0)
+			return;
+		
+		switch (axis) {
+		case 0:	// X axis
+		
+			if (index > this.cx)
+				return;
+				
+			x = index;
+			a.splice(x, 0, allocArray());			
+			a[x].length = this.cy;
+			
+			for ( ; y < this.cy; y++)
+			{
+				a[x][y] = allocArray();
+				a[x][y].length = this.cz;
+				
+				for (z = 0; z < this.cz; z++)
+					a[x][y][z] = value;
+			}
+			
+			this.cx++;
+			
+			break;
+		case 1: // Y axis
+		
+			if (index > this.cy)
+				return;
+				
+			for ( ; x < this.cx; x++)
+			{
+				y = index;
+				a[x].splice(y, 0, allocArray());
+				a[x][y].length = this.cz;
+				
+				for (z = 0; z < this.cz; z++)
+					a[x][y][z] = value;
+			}
+			
+			this.cy++;
+			
+			break;
+		case 2:	// Z axis
+		
+			if (index > this.cz)
+				return;
+				
+			for ( ; x < this.cx; x++)
+			{
+				for (y = 0; y < this.cy; y++)
+				{
+					a[x][y].splice(index, 0, value);
+				}
+			}
+			
+			this.cz++;
+			
+			break;
+		}
+	};
+	
+	Acts.prototype.JSONLoad = function (json_)
+	{
+		var o;
+		
+		try {
+			o = JSON.parse(json_);
+		}
+		catch(e) { return; }
+		
+		if (!o["c2array"])		// presumably not a c2array object
+			return;
+		
+		var sz = o["size"];
+		this.cx = sz[0];
+		this.cy = sz[1];
+		this.cz = sz[2];
+		
+		this.arr = o["data"];
+	};
+	
+	Acts.prototype.JSONDownload = function (filename)
+	{
+		var a = document.createElement("a");
+		
+		if (typeof a.download === "undefined")
+		{
+			var str = 'data:text/html,' + encodeURIComponent("<p><a download='" + filename + "' href=\"data:application/json,"
+				+ encodeURIComponent(this.getAsJSON())
+				+ "\">Download link</a></p>");
+			window.open(str);
+		}
+		else
+		{
+			// auto download
+			var body = document.getElementsByTagName("body")[0];
+			a.textContent = filename;
+			a.href = "data:application/json," + encodeURIComponent(this.getAsJSON());
+			a.download = filename;
+			body.appendChild(a);
+			a.click();
+			body.removeChild(a);
+		}
+	};
+	
+	pluginProto.acts = new Acts();
+
+	//////////////////////////////////////
+	// Expressions
+	function Exps() {};
+
+	Exps.prototype.At = function (ret, x, y_, z_)
+	{
+		var y = y_ || 0;
+		var z = z_ || 0;
+		
+		ret.set_any(this.at(x, y, z));
+	};
+	
+	Exps.prototype.Width = function (ret)
+	{
+		ret.set_int(this.cx);
+	};
+	
+	Exps.prototype.Height = function (ret)
+	{
+		ret.set_int(this.cy);
+	};
+	
+	Exps.prototype.Depth = function (ret)
+	{
+		ret.set_int(this.cz);
+	};
+	
+	Exps.prototype.CurX = function (ret)
+	{
+		ret.set_int(this.getForX());
+	};
+	
+	Exps.prototype.CurY = function (ret)
+	{
+		ret.set_int(this.getForY());
+	};
+	
+	Exps.prototype.CurZ = function (ret)
+	{
+		ret.set_int(this.getForZ());
+	};
+	
+	Exps.prototype.CurValue = function (ret)
+	{
+		ret.set_any(this.at(this.getForX(), this.getForY(), this.getForZ()));
+	};
+	
+	Exps.prototype.Front = function (ret)
+	{
+		ret.set_any(this.at(0, 0, 0));
+	};
+	
+	Exps.prototype.Back = function (ret)
+	{
+		ret.set_any(this.at(this.cx - 1, 0, 0));
+	};
+	
+	Exps.prototype.IndexOf = function (ret, v)
+	{
+		for (var i = 0; i < this.cx; i++)
+		{
+			if (this.arr[i][0][0] === v)
+			{
+				ret.set_int(i);
+				return;
+			}
+		}
+		
+		ret.set_int(-1);
+	};
+	
+	Exps.prototype.LastIndexOf = function (ret, v)
+	{
+		for (var i = this.cx - 1; i >= 0; i--)
+		{
+			if (this.arr[i][0][0] === v)
+			{
+				ret.set_int(i);
+				return;
+			}
+		}
+		
+		ret.set_int(-1);
+	};
+	
+	Exps.prototype.AsJSON = function (ret)
+	{
+		ret.set_string(this.getAsJSON());
+	};
+	
 	pluginProto.exps = new Exps();
 
 }());
@@ -43313,7 +44272,8 @@ cr.behaviors.Timer = function(runtime)
 					"c": t.current.sum,
 					"t": t.total.sum,
 					"d": t.duration,
-					"r": t.regular
+					"r": t.regular,
+					"p": t.paused
 				};
 			}
 		}
@@ -43335,7 +44295,8 @@ cr.behaviors.Timer = function(runtime)
 					current: new cr.KahanAdder(),
 					total: new cr.KahanAdder(),
 					duration: o[p]["d"],
-					regular: o[p]["r"]
+					regular: o[p]["r"],
+					paused: !!o[p]["p"]
 				};
 				
 				this.timers[p].current.sum = o[p]["c"];
@@ -43355,8 +44316,11 @@ cr.behaviors.Timer = function(runtime)
 			if (this.timers.hasOwnProperty(p))
 			{
 				t = this.timers[p];
-				t.current.add(dt);
-				t.total.add(dt);
+				if (!t.paused)
+				{
+					t.current.add(dt);
+					t.total.add(dt);
+				}
 			}
 		}
 	};
@@ -43404,6 +44368,12 @@ cr.behaviors.Timer = function(runtime)
 	{
 		return this.timers.hasOwnProperty(tag_.toLowerCase());
 	};
+	
+	Cnds.prototype.IsTimerPaused = function (tag_)
+	{
+		var t = this.timers[tag_.toLowerCase()];
+		return t && t.paused;
+	};
 
 	behaviorProto.cnds = new Cnds();
 
@@ -43417,7 +44387,8 @@ cr.behaviors.Timer = function(runtime)
 			current: new cr.KahanAdder(),
 			total: new cr.KahanAdder(),
 			duration: duration_,
-			regular: (type_ === 1)
+			regular: (type_ === 1),
+			paused: false
 		};
 	};
 	
@@ -43427,6 +44398,13 @@ cr.behaviors.Timer = function(runtime)
 		
 		if (this.timers.hasOwnProperty(tag_))
 			delete this.timers[tag_];
+	};
+	
+	Acts.prototype.PauseResumeTimer = function (tag_, state_)
+	{
+		var t = this.timers[tag_.toLowerCase()];
+		if (t)
+			t.paused = (state_ === 0);
 	};
 	
 	behaviorProto.acts = new Acts();
@@ -43451,6 +44429,149 @@ cr.behaviors.Timer = function(runtime)
 	{
 		var t = this.timers[tag_.toLowerCase()];
 		ret.set_float(t ? t.duration : 0);
+	};
+	
+	behaviorProto.exps = new Exps();
+	
+}());
+
+// Rotate
+// ECMAScript 5 strict mode
+
+;
+;
+
+/////////////////////////////////////
+// Behavior class
+cr.behaviors.Rotate = function(runtime)
+{
+	this.runtime = runtime;
+};
+
+(function ()
+{
+	var behaviorProto = cr.behaviors.Rotate.prototype;
+		
+	/////////////////////////////////////
+	// Behavior type class
+	behaviorProto.Type = function(behavior, objtype)
+	{
+		this.behavior = behavior;
+		this.objtype = objtype;
+		this.runtime = behavior.runtime;
+	};
+	
+	var behtypeProto = behaviorProto.Type.prototype;
+
+	behtypeProto.onCreate = function()
+	{
+	};
+
+	/////////////////////////////////////
+	// Behavior instance class
+	behaviorProto.Instance = function(type, inst)
+	{
+		this.type = type;
+		this.behavior = type.behavior;
+		this.inst = inst;				// associated object instance to modify
+		this.runtime = type.runtime;
+	};
+	
+	var behinstProto = behaviorProto.Instance.prototype;
+
+	behinstProto.onCreate = function()
+	{
+		this.speed = cr.to_radians(this.properties[0]);
+		this.acc = cr.to_radians(this.properties[1]);
+		this.enabled = this.properties[2];
+	};
+	
+	behinstProto.saveToJSON = function ()
+	{
+		return {
+			"speed": this.speed,
+			"acc": this.acc,
+			"e": this.enabled
+		};
+	};
+	
+	behinstProto.loadFromJSON = function (o)
+	{
+		this.speed = o["speed"];
+		this.acc = o["acc"];
+		
+		// Enabled property added in r48; treat missing entry as enabled
+		if (o.hasOwnProperty("e"))
+			this.enabled = o["e"];
+		else
+			this.enabled = true;
+	};
+
+	behinstProto.tick = function ()
+	{
+		if (!this.enabled)
+			return;
+		
+		var dt = this.runtime.getDt(this.inst);
+		
+		if (dt === 0)
+			return;
+			
+		if (this.acc !== 0)
+			this.speed += this.acc * dt;
+			
+		if (this.speed !== 0)
+		{
+			this.inst.angle = cr.clamp_angle(this.inst.angle + this.speed * dt);
+			this.inst.set_bbox_changed();
+		}
+	};
+	
+
+	//////////////////////////////////////
+	// Conditions
+	function Cnds() {};
+	
+	Cnds.prototype.IsEnabled = function ()
+	{
+		return this.enabled;
+	};
+	
+	behaviorProto.cnds = new Cnds();
+
+	//////////////////////////////////////
+	// Actions
+	function Acts() {};
+
+	Acts.prototype.SetSpeed = function (s)
+	{
+		this.speed = cr.to_radians(s);
+	};
+	
+	Acts.prototype.SetAcceleration = function (a)
+	{
+		this.acc = cr.to_radians(a);
+	};
+	
+	Acts.prototype.SetEnabled = function (en)
+	{
+		this.enabled = (en === 1);
+	};
+	
+	behaviorProto.acts = new Acts();
+
+	//////////////////////////////////////
+	// Expressions
+	function Exps() {};
+
+	Exps.prototype.Speed = function (ret)
+	{
+		ret.set_float(cr.to_degrees(this.speed));
+	};
+	
+	Exps.prototype.Acceleration = function (ret)
+	{
+		ret.set_float(cr.to_degrees(this.acc));
 	};
 	
 	behaviorProto.exps = new Exps();
@@ -43741,6 +44862,11 @@ cr.behaviors.Bullet = function(runtime)
 		return true;
 	};
 	
+	Cnds.prototype.IsEnabled = function ()
+	{
+		return this.enabled;
+	};
+	
 	behaviorProto.cnds = new Cnds();
 
 	//////////////////////////////////////
@@ -43865,143 +44991,6 @@ cr.behaviors.Bullet = function(runtime)
 	Exps.prototype.Gravity = function (ret)
 	{
 		ret.set_float(this.g);
-	};
-	
-	behaviorProto.exps = new Exps();
-	
-}());
-
-// Rotate
-// ECMAScript 5 strict mode
-
-;
-;
-
-/////////////////////////////////////
-// Behavior class
-cr.behaviors.Rotate = function(runtime)
-{
-	this.runtime = runtime;
-};
-
-(function ()
-{
-	var behaviorProto = cr.behaviors.Rotate.prototype;
-		
-	/////////////////////////////////////
-	// Behavior type class
-	behaviorProto.Type = function(behavior, objtype)
-	{
-		this.behavior = behavior;
-		this.objtype = objtype;
-		this.runtime = behavior.runtime;
-	};
-	
-	var behtypeProto = behaviorProto.Type.prototype;
-
-	behtypeProto.onCreate = function()
-	{
-	};
-
-	/////////////////////////////////////
-	// Behavior instance class
-	behaviorProto.Instance = function(type, inst)
-	{
-		this.type = type;
-		this.behavior = type.behavior;
-		this.inst = inst;				// associated object instance to modify
-		this.runtime = type.runtime;
-	};
-	
-	var behinstProto = behaviorProto.Instance.prototype;
-
-	behinstProto.onCreate = function()
-	{
-		this.speed = cr.to_radians(this.properties[0]);
-		this.acc = cr.to_radians(this.properties[1]);
-		this.enabled = this.properties[2];
-	};
-	
-	behinstProto.saveToJSON = function ()
-	{
-		return {
-			"speed": this.speed,
-			"acc": this.acc,
-			"e": this.enabled
-		};
-	};
-	
-	behinstProto.loadFromJSON = function (o)
-	{
-		this.speed = o["speed"];
-		this.acc = o["acc"];
-		
-		// Enabled property added in r48; treat missing entry as enabled
-		if (o.hasOwnProperty("e"))
-			this.enabled = o["e"];
-		else
-			this.enabled = true;
-	};
-
-	behinstProto.tick = function ()
-	{
-		if (!this.enabled)
-			return;
-		
-		var dt = this.runtime.getDt(this.inst);
-		
-		if (dt === 0)
-			return;
-			
-		if (this.acc !== 0)
-			this.speed += this.acc * dt;
-			
-		if (this.speed !== 0)
-		{
-			this.inst.angle = cr.clamp_angle(this.inst.angle + this.speed * dt);
-			this.inst.set_bbox_changed();
-		}
-	};
-	
-
-	//////////////////////////////////////
-	// Conditions
-	function Cnds() {};
-	behaviorProto.cnds = new Cnds();
-
-	//////////////////////////////////////
-	// Actions
-	function Acts() {};
-
-	Acts.prototype.SetSpeed = function (s)
-	{
-		this.speed = cr.to_radians(s);
-	};
-	
-	Acts.prototype.SetAcceleration = function (a)
-	{
-		this.acc = cr.to_radians(a);
-	};
-	
-	Acts.prototype.SetEnabled = function (en)
-	{
-		this.enabled = (en === 1);
-	};
-	
-	behaviorProto.acts = new Acts();
-
-	//////////////////////////////////////
-	// Expressions
-	function Exps() {};
-
-	Exps.prototype.Speed = function (ret)
-	{
-		ret.set_float(cr.to_degrees(this.speed));
-	};
-	
-	Exps.prototype.Acceleration = function (ret)
-	{
-		ret.set_float(cr.to_degrees(this.acc));
 	};
 	
 	behaviorProto.exps = new Exps();
@@ -44750,6 +45739,11 @@ cr.behaviors.Pathfinding = function(runtime)
 		return this.diagonalsEnabled;
 	};
 	
+	Cnds.prototype.IsEnabled = function ()
+	{
+		return this.enabled;
+	};
+	
 	behaviorProto.cnds = new Cnds();
 
 	//////////////////////////////////////
@@ -45233,6 +46227,11 @@ cr.behaviors.custom = function(runtime)
 		return true;
 	};
 	
+	Cnds.prototype.IsEnabled = function ()
+	{
+		return this.enabled;
+	};
+	
 	behaviorProto.cnds = new Cnds();
 
 	//////////////////////////////////////
@@ -45452,28 +46451,25 @@ cr.getObjectRefTable = function () {
 		cr.plugins_.Keyboard,
 		cr.plugins_.Mouse,
 		cr.plugins_.Dictionary,
+		cr.behaviors.Rotate,
 		cr.plugins_.TiledBg,
 		cr.behaviors.Bullet,
 		cr.plugins_.NinePatch,
-		cr.behaviors.Rotate,
 		cr.plugins_.Spriter,
 		cr.behaviors.Pathfinding,
 		cr.plugins_.Particles,
 		cr.plugins_.Button,
 		cr.behaviors.custom,
+		cr.plugins_.Arr,
 		cr.system_object.prototype.cnds.IsGroupActive,
 		cr.system_object.prototype.cnds.OnLayoutStart,
 		cr.plugins_.Function.prototype.acts.CallFunction,
+		cr.system_object.prototype.cnds.CompareVar,
 		cr.system_object.prototype.acts.SetVar,
-		cr.plugins_.Sprite.prototype.cnds.CompareX,
-		cr.plugins_.Sprite.prototype.exps.X,
-		cr.plugins_.Sprite.prototype.acts.SetX,
-		cr.system_object.prototype.cnds.Else,
-		cr.plugins_.Sprite.prototype.cnds.CompareY,
-		cr.plugins_.Sprite.prototype.exps.Y,
-		cr.plugins_.Sprite.prototype.acts.SetY,
 		cr.system_object.prototype.cnds.ForEach,
 		cr.plugins_.Sprite.prototype.acts.SetInstanceVar,
+		cr.plugins_.Sprite.prototype.exps.X,
+		cr.plugins_.Sprite.prototype.exps.Y,
 		cr.plugins_.Spriter.prototype.acts.SetInstanceVar,
 		cr.plugins_.Spriter.prototype.exps.X,
 		cr.plugins_.Spriter.prototype.exps.Y,
@@ -45483,48 +46479,59 @@ cr.getObjectRefTable = function () {
 		cr.plugins_.Sprite.prototype.cnds.CompareWidth,
 		cr.plugins_.Spriter.prototype.acts.setObjectScaleRatio,
 		cr.plugins_.Sprite.prototype.exps.Height,
-		cr.system_object.prototype.cnds.Compare,
-		cr.system_object.prototype.exps.layoutname,
-		cr.plugins_.Spriter.prototype.cnds.CompareInstanceVar,
+		cr.system_object.prototype.cnds.Else,
 		cr.system_object.prototype.acts.Wait,
-		cr.plugins_.Spriter.prototype.acts.appendCharMap,
 		cr.plugins_.Spriter.prototype.acts.MoveToTop,
+		cr.plugins_.Spriter.prototype.cnds.AnimationLooping,
+		cr.system_object.prototype.cnds.TriggerOnce,
+		cr.plugins_.Spriter.prototype.cnds.CompareInstanceVar,
+		cr.plugins_.Spriter.prototype.acts.appendCharMap,
+		cr.plugins_.Function.prototype.cnds.OnFunction,
+		cr.plugins_.Function.prototype.exps.Param,
 		cr.system_object.prototype.cnds.Every,
+		cr.plugins_.Sprite.prototype.cnds.CompareX,
+		cr.plugins_.Sprite.prototype.acts.SetX,
+		cr.plugins_.Sprite.prototype.cnds.CompareY,
+		cr.plugins_.Sprite.prototype.acts.SetY,
+		cr.plugins_.Sprite.prototype.cnds.CompareInstanceVar,
+		cr.plugins_.Sprite.prototype.acts.SetPos,
 		cr.behaviors.Physics.prototype.acts.SetWorldGravity,
 		cr.system_object.prototype.acts.Scroll,
-		cr.plugins_.Sprite.prototype.cnds.CompareInstanceVar,
+		cr.system_object.prototype.cnds.Compare,
 		cr.behaviors.Physics.prototype.cnds.CompareVelocity,
 		cr.behaviors.Physics.prototype.acts.ApplyForceAtAngle,
 		cr.system_object.prototype.exps.abs,
-		cr.plugins_.Function.prototype.cnds.OnFunction,
 		cr.plugins_.Dictionary.prototype.acts.AddKey,
 		cr.plugins_.Sprite.prototype.cnds.CompareFrame,
 		cr.plugins_.Dictionary.prototype.acts.SetKey,
 		cr.plugins_.Touch.prototype.cnds.OnTouchStart,
 		cr.plugins_.Touch.prototype.cnds.IsTouchingObject,
+		cr.plugins_.Sprite.prototype.cnds.CompareOpacity,
+		cr.system_object.prototype.exps.layoutname,
+		cr.system_object.prototype.acts.SetGroupActive,
 		cr.plugins_.Sprite.prototype.exps.UID,
-		cr.system_object.prototype.exps.random,
-		cr.plugins_.Spriter.prototype.acts.setAnimation,
-		cr.plugins_.Sprite.prototype.acts.SetOpacity,
-		cr.behaviors.Fade.prototype.acts.RestartFade,
-		cr.system_object.prototype.acts.GoToLayout,
-		cr.plugins_.Sprite.prototype.cnds.IsVisible,
-		cr.plugins_.Sprite.prototype.cnds.PickByUID,
-		cr.plugins_.Function.prototype.exps.Param,
-		cr.system_object.prototype.acts.GoToLayoutByName,
+		cr.plugins_.Dictionary.prototype.cnds.HasKey,
 		cr.plugins_.Dictionary.prototype.cnds.CompareValue,
 		cr.system_object.prototype.acts.CreateObjectByName,
+		cr.system_object.prototype.exps.random,
+		cr.plugins_.Spriter.prototype.acts.setAnimation,
+		cr.behaviors.Sin.prototype.acts.SetPeriod,
+		cr.system_object.prototype.acts.SnapshotCanvas,
+		cr.plugins_.Sprite.prototype.cnds.PickByUID,
+		cr.plugins_.Function.prototype.cnds.CompareParam,
+		cr.behaviors.Fade.prototype.acts.RestartFade,
+		cr.system_object.prototype.acts.GoToLayoutByName,
+		cr.plugins_.Sprite.prototype.cnds.IsOnLayer,
 		cr.plugins_.Touch.prototype.exps.X,
 		cr.plugins_.Touch.prototype.exps.Y,
 		cr.behaviors.Pathfinding.prototype.acts.FindPath,
 		cr.behaviors.Pathfinding.prototype.cnds.OnPathFound,
 		cr.behaviors.Pathfinding.prototype.acts.StartMoving,
 		cr.behaviors.Pathfinding.prototype.acts.SetMaxSpeed,
+		cr.behaviors.Pathfinding.prototype.cnds.IsMoving,
 		cr.system_object.prototype.cnds.CompareBetween,
 		cr.behaviors.Pathfinding.prototype.exps.MovingAngle,
 		cr.plugins_.Touch.prototype.cnds.OnDoubleTapGesture,
-		cr.system_object.prototype.acts.SetGroupActive,
-		cr.system_object.prototype.cnds.CompareVar,
 		cr.plugins_.Spriter.prototype.acts.SetPos,
 		cr.plugins_.Spriter.prototype.acts.MoveToLayer,
 		cr.behaviors.Pin.prototype.acts.Pin,
@@ -45538,10 +46545,14 @@ cr.getObjectRefTable = function () {
 		cr.plugins_.Spriter.prototype.cnds.OnAnimFinished,
 		cr.plugins_.Audio.prototype.acts.Play,
 		cr.plugins_.Spriter.prototype.cnds.CompareCurrentTime,
-		cr.behaviors.Pathfinding.prototype.cnds.OnArrived,
+		cr.behaviors.Pathfinding.prototype.acts.Stop,
 		cr.plugins_.Sprite.prototype.acts.SetAnimFrame,
-		cr.plugins_.Sprite.prototype.acts.SetPosToObject,
+		cr.behaviors.Pathfinding.prototype.cnds.OnArrived,
+		cr.behaviors.Sin.prototype.acts.SetEnabled,
 		cr.behaviors.Fade.prototype.acts.StartFade,
+		cr.plugins_.Sprite.prototype.cnds.IsAnimPlaying,
+		cr.plugins_.Sprite.prototype.exps.AnimationFrame,
+		cr.plugins_.Sprite.prototype.acts.SetPosToObject,
 		cr.plugins_.Sprite.prototype.cnds.IsOverlapping,
 		cr.behaviors.Timer.prototype.acts.StartTimer,
 		cr.behaviors.Timer.prototype.cnds.OnTimer,
@@ -45552,46 +46563,53 @@ cr.getObjectRefTable = function () {
 		cr.plugins_.Spriter.prototype.acts.SetVisible,
 		cr.plugins_.Particles.prototype.acts.SetVisible,
 		cr.plugins_.Particles.prototype.acts.SetSpraying,
+		cr.plugins_.Particles.prototype.acts.SetPos,
 		cr.plugins_.Particles.prototype.exps.X,
 		cr.plugins_.Particles.prototype.exps.Y,
 		cr.plugins_.Sprite.prototype.acts.SetAngle,
-		cr.behaviors.Pathfinding.prototype.cnds.IsMoving,
+		cr.plugins_.Spriter.prototype.acts.setVisible,
+		cr.behaviors.Timer.prototype.acts.StopTimer,
 		cr.system_object.prototype.cnds.ForEachOrdered,
 		cr.plugins_.Sprite.prototype.acts.MoveToTop,
 		cr.system_object.prototype.cnds.PickRandom,
-		cr.plugins_.Sprite.prototype.cnds.IsAnimPlaying,
 		cr.plugins_.Sprite.prototype.acts.SetAnim,
 		cr.plugins_.Sprite.prototype.acts.StartAnim,
 		cr.behaviors.Sin.prototype.exps.CyclePosition,
 		cr.plugins_.Sprite.prototype.acts.SetMirrored,
-		cr.plugins_.Sprite.prototype.acts.SubInstanceVar,
-		cr.plugins_.Sprite.prototype.acts.SetAnimSpeed,
-		cr.plugins_.Sprite.prototype.cnds.OnAnimFinished,
-		cr.behaviors.Pathfinding.prototype.acts.Stop,
-		cr.plugins_.Sprite.prototype.acts.SetPos,
+		cr.plugins_.Function.prototype.exps.ReturnValue,
+		cr.plugins_.Sprite.prototype.cnds.IsVisible,
 		cr.plugins_.Sprite.prototype.acts.SetEffectParam,
 		cr.plugins_.Sprite.prototype.exps.Opacity,
-		cr.system_object.prototype.cnds.TriggerOnce,
-		cr.behaviors.Timer.prototype.acts.StopTimer,
+		cr.plugins_.Sprite.prototype.acts.SetOpacity,
+		cr.behaviors.Bullet.prototype.acts.SetSpeed,
+		cr.behaviors.Bullet.prototype.acts.SetAcceleration,
+		cr.behaviors.Bullet.prototype.acts.SetAngleOfMotion,
+		cr.behaviors.solid.prototype.acts.SetEnabled,
+		cr.behaviors.Pathfinding.prototype.acts.RegenerateMap,
 		cr.plugins_.Spriter.prototype.exps.ScaleRatio,
 		cr.behaviors.Rotate.prototype.acts.SetAcceleration,
+		cr.plugins_.Spriter.prototype.acts.pauseAnimation,
 		cr.behaviors.Rotate.prototype.exps.Speed,
 		cr.behaviors.Rotate.prototype.acts.SetSpeed,
 		cr.plugins_.Sprite.prototype.exps.ImagePointX,
 		cr.plugins_.Sprite.prototype.exps.ImagePointY,
-		cr.behaviors.Bullet.prototype.acts.SetAngleOfMotion,
 		cr.plugins_.Sprite.prototype.cnds.OnCollision,
-		cr.behaviors.Bullet.prototype.acts.SetSpeed,
-		cr.behaviors.Sin.prototype.acts.SetEnabled,
-		cr.plugins_.Sprite.prototype.cnds.CompareOpacity,
+		cr.system_object.prototype.cnds.PickNth,
+		cr.plugins_.Sprite.prototype.exps.Count,
+		cr.plugins_.Sprite.prototype.acts.SetSize,
+		cr.plugins_.Sprite.prototype.acts.SetWidth,
+		cr.plugins_.Sprite.prototype.exps.Width,
+		cr.plugins_.Sprite.prototype.acts.SetHeight,
+		cr.behaviors.Fade.prototype.acts.SetWaitTime,
+		cr.plugins_.Sprite.prototype.cnds.OnAnyAnimFinished,
+		cr.system_object.prototype.exps.right,
 		cr.plugins_.Text.prototype.acts.Destroy,
 		cr.behaviors.Sin.prototype.exps.Magnitude,
 		cr.behaviors.Sin.prototype.acts.SetMagnitude,
 		cr.behaviors.Sin.prototype.acts.SetPhase,
-		cr.behaviors.Sin.prototype.acts.SetPeriod,
+		cr.plugins_.Dictionary.prototype.exps.Get,
 		cr.plugins_.Text.prototype.acts.SetVisible,
 		cr.plugins_.Text.prototype.acts.SetText,
-		cr.plugins_.Dictionary.prototype.exps.Get,
 		cr.plugins_.Text.prototype.acts.SetInstanceVar,
 		cr.system_object.prototype.exps.angle,
 		cr.plugins_.Text.prototype.cnds.CompareInstanceVar,
@@ -45602,10 +46620,10 @@ cr.getObjectRefTable = function () {
 		cr.plugins_.Text.prototype.exps.Opacity,
 		cr.behaviors.Pin.prototype.cnds.IsPinned,
 		cr.plugins_.Text.prototype.acts.SetPos,
-		cr.plugins_.Sprite.prototype.acts.SetEffectEnabled,
-		cr.plugins_.Sprite.prototype.acts.SetScale,
-		cr.plugins_.Keyboard.prototype.cnds.OnKeyReleased,
+		cr.plugins_.Text.prototype.acts.MoveToTop,
+		cr.plugins_.Text.prototype.acts.SetOpacity,
 		cr.plugins_.Keyboard.prototype.cnds.IsKeyDown,
+		cr.plugins_.Keyboard.prototype.cnds.OnKeyReleased,
 		cr.system_object.prototype.exps.scrollx,
 		cr.system_object.prototype.exps.layoutwidth,
 		cr.system_object.prototype.exps["float"],
@@ -45614,45 +46632,49 @@ cr.getObjectRefTable = function () {
 		cr.system_object.prototype.exps.scrolly,
 		cr.system_object.prototype.exps.layoutheight,
 		cr.system_object.prototype.acts.SetLayoutScale,
-		cr.plugins_.Sprite.prototype.cnds.IsOnLayer,
 		cr.system_object.prototype.acts.SetLayerScale,
 		cr.behaviors.Sin.prototype.exps.Value,
-		cr.plugins_.Spriter.prototype.cnds.IsOnLayer,
-		cr.system_object.prototype.cnds.PickNth,
-		cr.plugins_.Sprite.prototype.exps.Count,
 		cr.plugins_.Sprite.prototype.acts.MoveToBottom,
 		cr.plugins_.Mouse.prototype.exps.X,
 		cr.plugins_.Mouse.prototype.exps.Y,
+		cr.system_object.prototype.acts.AddVar,
+		cr.system_object.prototype.exps.str,
+		cr.plugins_.Sprite.prototype.acts.ZMoveToObject,
+		cr.plugins_.Sprite.prototype.acts.SetAnimSpeed,
+		cr.plugins_.Sprite.prototype.exps.AnimationSpeed,
+		cr.behaviors.Rotate.prototype.acts.SetEnabled,
 		cr.plugins_.Dictionary.prototype.cnds.ForEachKey,
 		cr.plugins_.Dictionary.prototype.exps.CurrentKey,
-		cr.system_object.prototype.acts.AddVar,
-		cr.plugins_.Touch.prototype.cnds.OnTouchEnd,
 		cr.system_object.prototype.exps["int"],
 		cr.plugins_.Sprite.prototype.exps.Angle,
 		cr.plugins_.Sprite.prototype.cnds.IsBoolInstanceVarSet,
 		cr.behaviors.Bullet.prototype.cnds.CompareSpeed,
-		cr.behaviors.Bullet.prototype.acts.SetAcceleration,
 		cr.plugins_.Sprite.prototype.acts.ToggleBoolInstanceVar,
 		cr.plugins_.Touch.prototype.cnds.IsInTouch,
 		cr.plugins_.Sprite.prototype.cnds.PickTopBottom,
-		cr.system_object.prototype.exps.viewportright,
-		cr.system_object.prototype.exps.viewportbottom,
+		cr.plugins_.Sprite.prototype.exps.BBoxLeft,
+		cr.plugins_.Sprite.prototype.exps.BBoxRight,
+		cr.plugins_.Sprite.prototype.exps.BBoxTop,
+		cr.plugins_.Sprite.prototype.exps.BBoxBottom,
 		cr.plugins_.Sprite.prototype.cnds.IsBetweenAngles,
-		cr.plugins_.Text.prototype.acts.MoveToTop,
+		cr.plugins_.Touch.prototype.cnds.OnTouchEnd,
 		cr.plugins_.Sprite.prototype.exps.PickedCount,
-		cr.plugins_.Function.prototype.cnds.CompareParam,
 		cr.plugins_.Text.prototype.acts.SetAngle,
 		cr.plugins_.Text.prototype.acts.ZMoveToObject,
 		cr.plugins_.Sprite.prototype.exps.ZIndex,
-		cr.plugins_.Sprite.prototype.acts.ZMoveToObject,
 		cr.plugins_.Text.prototype.exps.Text,
 		cr.plugins_.Sprite.prototype.cnds.AngleWithin,
+		cr.plugins_.Sprite.prototype.exps.ImagePointCount,
+		cr.system_object.prototype.cnds.Repeat,
+		cr.system_object.prototype.cnds.AngleWithin,
+		cr.system_object.prototype.cnds.EveryTick,
 		cr.plugins_.Spriter.prototype.cnds.readyForSetup,
 		cr.plugins_.Spriter.prototype.acts.associateTypeWithName,
 		cr.plugins_.AJAX.prototype.acts.RequestFile,
 		cr.plugins_.AJAX.prototype.cnds.OnComplete,
 		cr.plugins_.XML.prototype.acts.Load,
 		cr.plugins_.AJAX.prototype.exps.LastData,
+		cr.plugins_.Sprite.prototype.acts.SetScale,
 		cr.plugins_.XML.prototype.exps.NodeCount,
 		cr.plugins_.XML.prototype.exps.StringValue,
 		cr.behaviors.Sin.prototype.exps.Period,
@@ -45660,17 +46682,46 @@ cr.getObjectRefTable = function () {
 		cr.plugins_.Text.prototype.cnds.IsBoolInstanceVarSet,
 		cr.plugins_.Sprite.prototype.acts.StopAnim,
 		cr.system_object.prototype.exps.len,
-		cr.plugins_.Spriter.prototype.acts.setAnimationTime,
+		cr.plugins_.Spriter.prototype.cnds.CompareX,
 		cr.plugins_.Touch.prototype.cnds.OnDoubleTapGestureObject,
 		cr.system_object.prototype.cnds.OnLoadFinished,
 		cr.plugins_.Audio.prototype.acts.SetMuted,
+		cr.plugins_.Audio.prototype.acts.SetVolume,
+		cr.plugins_.Audio.prototype.exps.Volume,
 		cr.plugins_.Button.prototype.cnds.OnClicked,
 		cr.plugins_.Button.prototype.cnds.CompareInstanceVar,
 		cr.system_object.prototype.exps.wallclocktime,
-		cr.plugins_.Audio.prototype.acts.SetVolume,
-		cr.plugins_.Audio.prototype.exps.Volume,
 		cr.plugins_.Touch.prototype.cnds.OnTouchObject,
-		cr.behaviors.Bullet.prototype.acts.SetEnabled
+		cr.behaviors.Bullet.prototype.acts.SetEnabled,
+		cr.system_object.prototype.cnds.OnCanvasSnapshot,
+		cr.system_object.prototype.exps.originalviewportwidth,
+		cr.system_object.prototype.exps.originalviewportheight,
+		cr.system_object.prototype.exps.viewportright,
+		cr.system_object.prototype.exps.viewportleft,
+		cr.system_object.prototype.exps.viewportbottom,
+		cr.system_object.prototype.exps.viewporttop,
+		cr.plugins_.Sprite.prototype.acts.LoadURL,
+		cr.system_object.prototype.exps.canvassnapshot,
+		cr.behaviors.Physics.prototype.acts.SetEnabled,
+		cr.plugins_.Spriter.prototype.acts.resumeAnimation,
+		cr.system_object.prototype.exps.windowheight,
+		cr.system_object.prototype.acts.SetTimescale,
+		cr.system_object.prototype.exps.timescale,
+		cr.plugins_.Arr.prototype.cnds.CompareXY,
+		cr.plugins_.AJAX.prototype.cnds.OnAnyComplete,
+		cr.plugins_.Arr.prototype.acts.JSONLoad,
+		cr.plugins_.Arr.prototype.cnds.ArrForEach,
+		cr.plugins_.Arr.prototype.exps.CurY,
+		cr.plugins_.Function.prototype.acts.SetReturnValue,
+		cr.plugins_.Arr.prototype.exps.At,
+		cr.plugins_.Arr.prototype.acts.SetXY,
+		cr.plugins_.Text.prototype.cnds.IsOnLayer,
+		cr.plugins_.Text.prototype.cnds.CompareText,
+		cr.plugins_.Text.prototype.acts.SetFontColor,
+		cr.system_object.prototype.exps.rgbex,
+		cr.system_object.prototype.cnds.LayerVisible,
+		cr.system_object.prototype.acts.SetLayerVisible,
+		cr.behaviors.Sin.prototype.cnds.IsEnabled
 	];
 };
 

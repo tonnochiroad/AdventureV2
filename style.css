@@ -17,3 +17,33 @@ html, body, canvas {
 	src: url('fonts/indieflower.ttf') format('truetype');
 }
 
+@font-face {
+	font-family: 'NanumPenScript';
+	src: url('fonts/nanumpenscript.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'AnnieUseYourTelescope';
+	src: url('fonts/annieuseyourtelescope.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Coming Soon';
+	src: url('fonts/coming soon.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'NanumBrushScript';
+	src: url('fonts/nanumbrushscript.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'PermanentMarker';
+	src: url('fonts/permanentmarker.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'KabelLTStd-Book';
+	src: url('fonts/kabelltstd-book.otf') format('opentype');
+}
+
